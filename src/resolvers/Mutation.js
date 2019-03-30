@@ -17,8 +17,8 @@ const Mutations = {
         data: {
           ...args,
           password,
-          permissions: { set: ['USER'] },
-        },
+          permissions: { set: ['USER'] }
+        }
       },
       info
     );
@@ -27,7 +27,7 @@ const Mutations = {
     // We set the jwt as a cookie on the response
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+      maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
     });
     // Finalllllly we return the user to the browser
     return user;
@@ -48,7 +48,7 @@ const Mutations = {
     // 4. Set the cookie with the token
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365,
+      maxAge: 1000 * 60 * 60 * 24 * 365
     });
     // 5. Return the user
     return user;
@@ -69,7 +69,7 @@ const Mutations = {
     const resetTokenExpiry = Date.now() + 3600000; // 1 hour from now
     const res = await ctx.db.mutation.updateUser({
       where: { email: args.email },
-      data: { resetToken, resetTokenExpiry },
+      data: { resetToken, resetTokenExpiry }
     });
     // 3. Email them that reset token
     const mailRes = await transport.sendMail({
@@ -78,8 +78,9 @@ const Mutations = {
       subject: 'Your Password Reset Token',
       html: makeANiceEmail(`Your Password Reset Token is here!
       \n\n
-      <a href="${process.env
-        .FRONTEND_URL}/reset?resetToken=${resetToken}">Click Here to Reset</a>`),
+      <a href="${
+        process.env.FRONTEND_URL
+      }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
     });
 
     // 4. Return the message
@@ -95,8 +96,8 @@ const Mutations = {
     const [user] = await ctx.db.query.users({
       where: {
         resetToken: args.resetToken,
-        resetTokenExpiry_gte: Date.now() - 3600000,
-      },
+        resetTokenExpiry_gte: Date.now() - 3600000
+      }
     });
     if (!user) {
       throw new Error('This token is either invalid or expired!');
@@ -109,15 +110,15 @@ const Mutations = {
       data: {
         password,
         resetToken: null,
-        resetTokenExpiry: null,
-      },
+        resetTokenExpiry: null
+      }
     });
     // 6. Generate JWT
     const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
     // 7. Set the JWT cookie
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365,
+      maxAge: 1000 * 60 * 60 * 24 * 365
     });
     // 8. return the new user
     return updatedUser;
@@ -131,8 +132,8 @@ const Mutations = {
     const currentUser = await ctx.db.query.user(
       {
         where: {
-          id: ctx.request.userId,
-        },
+          id: ctx.request.userId
+        }
       },
       info
     );
@@ -143,12 +144,12 @@ const Mutations = {
       {
         data: {
           permissions: {
-            set: args.permissions,
-          },
+            set: args.permissions
+          }
         },
         where: {
-          id: args.userId,
-        },
+          id: args.userId
+        }
       },
       info
     );

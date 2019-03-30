@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/pablo-diaz-453e27/chapi-planilla-backend/dev
-# timestamp: Sun Feb 17 2019 23:37:30 GMT-0600 (Central Standard Time)
+# timestamp: Sat Mar 30 2019 13:11:42 GMT-0600 (Central Standard Time)
 
 type AggregateUser {
   count: Int!
@@ -98,6 +98,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   name: String!
   email: String!
   password: String!
