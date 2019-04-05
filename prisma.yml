@@ -1,5 +1,5 @@
-endpoint: https://eu1.prisma.sh/pablo-diaz-453e27/chapi-planilla-backend/dev
-datamodel: datamodel.prisma
+endpoint: ${env:PRISMA_ENDPOINT}
+datamodel: datamodel.graphql
 secret: ${env:PRISMA_SECRET}
 hooks:
   post-deploy:
