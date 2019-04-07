@@ -26,6 +26,7 @@ type Employee {
 
 type Company {
   id: ID! @unique
+  active: Boolean!
   name: String!
 }
 

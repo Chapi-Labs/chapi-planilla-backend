@@ -26,7 +26,8 @@ const Query = {
     // 2. if they do, query all the users!
     return ctx.db.query.users({}, info);
   },
-  employees: forwardTo('db')
+  employees: forwardTo('db'),
+  companies: forwardTo('db')
 };
 
 module.exports = Query;

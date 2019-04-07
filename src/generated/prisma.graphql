@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/pablo-diaz-453e27/chapi-planilla-backend/dev
-# timestamp: Sun Apr 07 2019 11:20:36 GMT-0600 (Central Standard Time)
+# timestamp: Sun Apr 07 2019 13:56:56 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -32,6 +32,7 @@ type BatchPayload {
 
 type Company implements Node {
   id: ID!
+  active: Boolean!
   name: String!
 }
 
@@ -47,6 +48,7 @@ type CompanyConnection {
 
 input CompanyCreateInput {
   id: ID
+  active: Boolean!
   name: String!
 }
 
@@ -67,6 +69,8 @@ type CompanyEdge {
 enum CompanyOrderByInput {
   id_ASC
   id_DESC
+  active_ASC
+  active_DESC
   name_ASC
   name_DESC
   updatedAt_ASC
@@ -77,6 +81,7 @@ enum CompanyOrderByInput {
 
 type CompanyPreviousValues {
   id: ID!
+  active: Boolean!
   name: String!
 }
 
@@ -120,14 +125,17 @@ input CompanySubscriptionWhereInput {
 }
 
 input CompanyUpdateDataInput {
+  active: Boolean
   name: String
 }
 
 input CompanyUpdateInput {
+  active: Boolean
   name: String
 }
 
 input CompanyUpdateManyMutationInput {
+  active: Boolean
   name: String
 }
 
@@ -192,6 +200,10 @@ input CompanyWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
   name: String
 
   """All values that are not equal to given value."""
