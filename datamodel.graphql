@@ -16,3 +16,48 @@ type User {
   resetTokenExpiry: Float
   permissions: [Permission]
 }
+
+type Employee {
+  id: ID! @unique
+  name: String!
+  active: Boolean!
+  email: String! @unique
+}
+
+type Company {
+  id: ID! @unique
+  name: String!
+}
+
+# Salary, social insurance
+# discounts
+type PayrollType {
+  id: ID! @unique
+  type: String!
+  operator: String!
+  value: Float!
+}
+
+# Payroll template that groups
+# payroll types
+type PayrollConfig {
+  id: ID! @unique
+  name: String!
+  types: [PayrollType!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+
+}
+
+# all types of payrolls inside
+# a company
+type PayrollRegistry {
+  id: ID! @unique
+  name: String!
+  active: Boolean!
+  company: Company!
+  config: PayrollConfig!
+  employees: [Employee!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
