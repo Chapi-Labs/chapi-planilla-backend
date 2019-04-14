@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/pablo-diaz-453e27/chapi-planilla-backend/dev
-# timestamp: Sun Apr 07 2019 13:56:56 GMT-0600 (Central Standard Time)
+# timestamp: Sun Apr 07 2019 18:47:58 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -254,7 +254,8 @@ scalar DateTime
 
 type Employee implements Node {
   id: ID!
-  name: String!
+  first_name: String!
+  last_name: String!
   active: Boolean!
   email: String!
 }
@@ -271,7 +272,8 @@ type EmployeeConnection {
 
 input EmployeeCreateInput {
   id: ID
-  name: String!
+  first_name: String!
+  last_name: String!
   active: Boolean!
   email: String!
 }
@@ -293,8 +295,10 @@ type EmployeeEdge {
 enum EmployeeOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
+  first_name_ASC
+  first_name_DESC
+  last_name_ASC
+  last_name_DESC
   active_ASC
   active_DESC
   email_ASC
@@ -307,7 +311,8 @@ enum EmployeeOrderByInput {
 
 type EmployeePreviousValues {
   id: ID!
-  name: String!
+  first_name: String!
+  last_name: String!
   active: Boolean!
   email: String!
 }
@@ -361,46 +366,86 @@ input EmployeeScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
+  first_name: String
 
   """All values that are not equal to given value."""
-  name_not: String
+  first_name_not: String
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  first_name_in: [String!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  first_name_not_in: [String!]
 
   """All values less than the given value."""
-  name_lt: String
+  first_name_lt: String
 
   """All values less than or equal the given value."""
-  name_lte: String
+  first_name_lte: String
 
   """All values greater than the given value."""
-  name_gt: String
+  first_name_gt: String
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  first_name_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  first_name_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  first_name_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  first_name_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  first_name_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  first_name_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
+  first_name_not_ends_with: String
+  last_name: String
+
+  """All values that are not equal to given value."""
+  last_name_not: String
+
+  """All values that are contained in given list."""
+  last_name_in: [String!]
+
+  """All values that are not contained in given list."""
+  last_name_not_in: [String!]
+
+  """All values less than the given value."""
+  last_name_lt: String
+
+  """All values less than or equal the given value."""
+  last_name_lte: String
+
+  """All values greater than the given value."""
+  last_name_gt: String
+
+  """All values greater than or equal the given value."""
+  last_name_gte: String
+
+  """All values containing the given string."""
+  last_name_contains: String
+
+  """All values not containing the given string."""
+  last_name_not_contains: String
+
+  """All values starting with the given string."""
+  last_name_starts_with: String
+
+  """All values not starting with the given string."""
+  last_name_not_starts_with: String
+
+  """All values ending with the given string."""
+  last_name_ends_with: String
+
+  """All values not ending with the given string."""
+  last_name_not_ends_with: String
   active: Boolean
 
   """All values that are not equal to given value."""
@@ -487,19 +532,22 @@ input EmployeeSubscriptionWhereInput {
 }
 
 input EmployeeUpdateDataInput {
-  name: String
+  first_name: String
+  last_name: String
   active: Boolean
   email: String
 }
 
 input EmployeeUpdateInput {
-  name: String
+  first_name: String
+  last_name: String
   active: Boolean
   email: String
 }
 
 input EmployeeUpdateManyDataInput {
-  name: String
+  first_name: String
+  last_name: String
   active: Boolean
   email: String
 }
@@ -517,7 +565,8 @@ input EmployeeUpdateManyInput {
 }
 
 input EmployeeUpdateManyMutationInput {
-  name: String
+  first_name: String
+  last_name: String
   active: Boolean
   email: String
 }
@@ -587,46 +636,86 @@ input EmployeeWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
+  first_name: String
 
   """All values that are not equal to given value."""
-  name_not: String
+  first_name_not: String
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  first_name_in: [String!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  first_name_not_in: [String!]
 
   """All values less than the given value."""
-  name_lt: String
+  first_name_lt: String
 
   """All values less than or equal the given value."""
-  name_lte: String
+  first_name_lte: String
 
   """All values greater than the given value."""
-  name_gt: String
+  first_name_gt: String
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  first_name_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  first_name_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  first_name_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  first_name_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  first_name_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  first_name_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
+  first_name_not_ends_with: String
+  last_name: String
+
+  """All values that are not equal to given value."""
+  last_name_not: String
+
+  """All values that are contained in given list."""
+  last_name_in: [String!]
+
+  """All values that are not contained in given list."""
+  last_name_not_in: [String!]
+
+  """All values less than the given value."""
+  last_name_lt: String
+
+  """All values less than or equal the given value."""
+  last_name_lte: String
+
+  """All values greater than the given value."""
+  last_name_gt: String
+
+  """All values greater than or equal the given value."""
+  last_name_gte: String
+
+  """All values containing the given string."""
+  last_name_contains: String
+
+  """All values not containing the given string."""
+  last_name_not_contains: String
+
+  """All values starting with the given string."""
+  last_name_starts_with: String
+
+  """All values not starting with the given string."""
+  last_name_not_starts_with: String
+
+  """All values ending with the given string."""
+  last_name_ends_with: String
+
+  """All values not ending with the given string."""
+  last_name_not_ends_with: String
   active: Boolean
 
   """All values that are not equal to given value."""

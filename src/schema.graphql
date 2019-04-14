@@ -15,8 +15,9 @@ type Mutation {
     confirmPassword: String!
   ): User!
   updatePermissions(permissions: [Permission], userId: ID!): User
-  createEmployee(name: String!, email: String!): Employee!
+  createEmployee(first_name: String!, last_name: String!,  email: String!): Employee!
   createCompany(name: String!): Company!
+  updateEmployee(id: ID!, first_name: String, last_name: String, email: String): Employee
 }
 
 type Query {
