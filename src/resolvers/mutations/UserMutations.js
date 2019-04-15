@@ -50,6 +50,7 @@ const UserMutations = {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 365
         });
+        console.log(ctx.response);
         // 5. Return the user
         return user;
     },
