@@ -48,10 +48,9 @@ const UserMutations = {
         // 4. Set the cookie with the token
         ctx.response.cookie('token', token, {
             httpOnly: false,
-            domain: 'https://chapiplanilla.chapilabs.com',
             maxAge: 1000 * 60 * 60 * 24 * 365
         });
-        console.log(ctx.response);
+        console.log(ctx.response)
         // 5. Return the user
         return user;
     },
