@@ -36,7 +36,7 @@ server.express.use(async (req, res, next) => {
 server.start(
   {
     cors: {
-      credentials: 'include',
+      credentials: true,
       origin: process.env.FRONTEND_URL,
     },
   },
