@@ -47,7 +47,7 @@ const UserMutations = {
         const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
         // 4. Set the cookie with the token
         ctx.response.cookie('token', token, {
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 1000 * 60 * 60 * 24 * 365
         });
         console.log(ctx.response);
