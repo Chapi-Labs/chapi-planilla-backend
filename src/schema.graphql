@@ -4,6 +4,13 @@ type SuccessMessage {
   message: String
 }
 
+type SelectRender {
+  id: String!
+  value: String
+  label: String
+  name: String
+}
+
 type Mutation {
   signup(email: String!, password: String!, name: String!): User!
   signin(email: String!, password: String!): User!
@@ -18,11 +25,12 @@ type Mutation {
   createEmployee(first_name: String!, last_name: String!,  email: String!): Employee!
   createCompany(name: String!): Company!
   updateEmployee(id: ID!, first_name: String, last_name: String, email: String): Employee
+  #createPayrollRegistry(name: String!, )
 }
 
 type Query {
   me: User
   users: [User]!
   employees: [Employee]!
-  companies: [Company]!
+  companies(where: CompanyWhereInput): [SelectRender]!
 }

@@ -27,7 +27,15 @@ const Query = {
     return ctx.db.query.users({}, info);
   },
   employees: forwardTo('db'),
-  companies: forwardTo('db')
+  async companies(parent, args, ctx, info) {
+     // 1. Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!');
+    }
+    const data = await ctx.db.query.companies(args, `{ id name }`);
+    const companiesRender = data.map(c => ({ id: c.id, value: c.id, label: c.name}));
+    return companiesRender;
+  }
 };
 
 module.exports = Query;
