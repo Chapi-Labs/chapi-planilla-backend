@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/pablo-diaz-453e27/chapi-planilla-backend/dev
-# timestamp: Sun Apr 07 2019 18:47:58 GMT-0600 (Central Standard Time)
+# source: http://chapi-planilla-prisma.herokuapp.com
+# timestamp: Thu Apr 18 2019 13:10:48 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -48,13 +48,8 @@ type CompanyConnection {
 
 input CompanyCreateInput {
   id: ID
-  active: Boolean!
+  active: Boolean
   name: String!
-}
-
-input CompanyCreateOneInput {
-  create: CompanyCreateInput
-  connect: CompanyWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -66,6 +61,127 @@ type CompanyEdge {
   cursor: String!
 }
 
+type CompanyEmbedded implements Node {
+  id: ID!
+  active: Boolean!
+  name: String!
+}
+
+input CompanyEmbeddedCreateInput {
+  id: ID
+  active: Boolean
+  name: String!
+}
+
+input CompanyEmbeddedCreateOneInput {
+  create: CompanyEmbeddedCreateInput
+}
+
+input CompanyEmbeddedUpdateDataInput {
+  active: Boolean
+  name: String
+}
+
+input CompanyEmbeddedUpdateOneRequiredInput {
+  create: CompanyEmbeddedCreateInput
+  update: CompanyEmbeddedUpdateDataInput
+  upsert: CompanyEmbeddedUpsertNestedInput
+}
+
+input CompanyEmbeddedUpsertNestedInput {
+  update: CompanyEmbeddedUpdateDataInput!
+  create: CompanyEmbeddedCreateInput!
+}
+
+input CompanyEmbeddedWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CompanyEmbeddedWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
 enum CompanyOrderByInput {
   id_ASC
   id_DESC
@@ -73,10 +189,6 @@ enum CompanyOrderByInput {
   active_DESC
   name_ASC
   name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type CompanyPreviousValues {
@@ -95,12 +207,6 @@ type CompanySubscriptionPayload {
 input CompanySubscriptionWhereInput {
   """Logical AND on all given filters."""
   AND: [CompanySubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [CompanySubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [CompanySubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -124,11 +230,6 @@ input CompanySubscriptionWhereInput {
   node: CompanyWhereInput
 }
 
-input CompanyUpdateDataInput {
-  active: Boolean
-  name: String
-}
-
 input CompanyUpdateInput {
   active: Boolean
   name: String
@@ -139,27 +240,9 @@ input CompanyUpdateManyMutationInput {
   name: String
 }
 
-input CompanyUpdateOneRequiredInput {
-  create: CompanyCreateInput
-  connect: CompanyWhereUniqueInput
-  update: CompanyUpdateDataInput
-  upsert: CompanyUpsertNestedInput
-}
-
-input CompanyUpsertNestedInput {
-  update: CompanyUpdateDataInput!
-  create: CompanyCreateInput!
-}
-
 input CompanyWhereInput {
   """Logical AND on all given filters."""
   AND: [CompanyWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [CompanyWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [CompanyWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -274,7 +357,7 @@ input EmployeeCreateInput {
   id: ID
   first_name: String!
   last_name: String!
-  active: Boolean!
+  active: Boolean
   email: String!
 }
 
@@ -303,10 +386,6 @@ enum EmployeeOrderByInput {
   active_DESC
   email_ASC
   email_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type EmployeePreviousValues {
@@ -503,12 +582,6 @@ input EmployeeSubscriptionWhereInput {
   """Logical AND on all given filters."""
   AND: [EmployeeSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
-  OR: [EmployeeSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [EmployeeSubscriptionWhereInput!]
-
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
@@ -590,12 +663,6 @@ input EmployeeUpsertWithWhereUniqueNestedInput {
 input EmployeeWhereInput {
   """Logical AND on all given filters."""
   AND: [EmployeeWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [EmployeeWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [EmployeeWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -775,41 +842,41 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
-  createPayrollRegistry(data: PayrollRegistryCreateInput!): PayrollRegistry!
-  createPayrollType(data: PayrollTypeCreateInput!): PayrollType!
-  createPayrollConfig(data: PayrollConfigCreateInput!): PayrollConfig!
-  createEmployee(data: EmployeeCreateInput!): Employee!
   createCompany(data: CompanyCreateInput!): Company!
+  createPayrollConfig(data: PayrollConfigCreateInput!): PayrollConfig!
+  createPayrollRegistry(data: PayrollRegistryCreateInput!): PayrollRegistry!
+  createEmployee(data: EmployeeCreateInput!): Employee!
+  createPayrollType(data: PayrollTypeCreateInput!): PayrollType!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updatePayrollRegistry(data: PayrollRegistryUpdateInput!, where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
-  updatePayrollType(data: PayrollTypeUpdateInput!, where: PayrollTypeWhereUniqueInput!): PayrollType
-  updatePayrollConfig(data: PayrollConfigUpdateInput!, where: PayrollConfigWhereUniqueInput!): PayrollConfig
-  updateEmployee(data: EmployeeUpdateInput!, where: EmployeeWhereUniqueInput!): Employee
   updateCompany(data: CompanyUpdateInput!, where: CompanyWhereUniqueInput!): Company
+  updatePayrollConfig(data: PayrollConfigUpdateInput!, where: PayrollConfigWhereUniqueInput!): PayrollConfig
+  updatePayrollRegistry(data: PayrollRegistryUpdateInput!, where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
+  updateEmployee(data: EmployeeUpdateInput!, where: EmployeeWhereUniqueInput!): Employee
+  updatePayrollType(data: PayrollTypeUpdateInput!, where: PayrollTypeWhereUniqueInput!): PayrollType
   deleteUser(where: UserWhereUniqueInput!): User
-  deletePayrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
-  deletePayrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
-  deletePayrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
-  deleteEmployee(where: EmployeeWhereUniqueInput!): Employee
   deleteCompany(where: CompanyWhereUniqueInput!): Company
+  deletePayrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
+  deletePayrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
+  deleteEmployee(where: EmployeeWhereUniqueInput!): Employee
+  deletePayrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertPayrollRegistry(where: PayrollRegistryWhereUniqueInput!, create: PayrollRegistryCreateInput!, update: PayrollRegistryUpdateInput!): PayrollRegistry!
-  upsertPayrollType(where: PayrollTypeWhereUniqueInput!, create: PayrollTypeCreateInput!, update: PayrollTypeUpdateInput!): PayrollType!
-  upsertPayrollConfig(where: PayrollConfigWhereUniqueInput!, create: PayrollConfigCreateInput!, update: PayrollConfigUpdateInput!): PayrollConfig!
-  upsertEmployee(where: EmployeeWhereUniqueInput!, create: EmployeeCreateInput!, update: EmployeeUpdateInput!): Employee!
   upsertCompany(where: CompanyWhereUniqueInput!, create: CompanyCreateInput!, update: CompanyUpdateInput!): Company!
+  upsertPayrollConfig(where: PayrollConfigWhereUniqueInput!, create: PayrollConfigCreateInput!, update: PayrollConfigUpdateInput!): PayrollConfig!
+  upsertPayrollRegistry(where: PayrollRegistryWhereUniqueInput!, create: PayrollRegistryCreateInput!, update: PayrollRegistryUpdateInput!): PayrollRegistry!
+  upsertEmployee(where: EmployeeWhereUniqueInput!, create: EmployeeCreateInput!, update: EmployeeUpdateInput!): Employee!
+  upsertPayrollType(where: PayrollTypeWhereUniqueInput!, create: PayrollTypeCreateInput!, update: PayrollTypeUpdateInput!): PayrollType!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  updateManyPayrollRegistries(data: PayrollRegistryUpdateManyMutationInput!, where: PayrollRegistryWhereInput): BatchPayload!
-  updateManyPayrollTypes(data: PayrollTypeUpdateManyMutationInput!, where: PayrollTypeWhereInput): BatchPayload!
-  updateManyPayrollConfigs(data: PayrollConfigUpdateManyMutationInput!, where: PayrollConfigWhereInput): BatchPayload!
-  updateManyEmployees(data: EmployeeUpdateManyMutationInput!, where: EmployeeWhereInput): BatchPayload!
   updateManyCompanies(data: CompanyUpdateManyMutationInput!, where: CompanyWhereInput): BatchPayload!
+  updateManyPayrollConfigs(data: PayrollConfigUpdateManyMutationInput!, where: PayrollConfigWhereInput): BatchPayload!
+  updateManyPayrollRegistries(data: PayrollRegistryUpdateManyMutationInput!, where: PayrollRegistryWhereInput): BatchPayload!
+  updateManyEmployees(data: EmployeeUpdateManyMutationInput!, where: EmployeeWhereInput): BatchPayload!
+  updateManyPayrollTypes(data: PayrollTypeUpdateManyMutationInput!, where: PayrollTypeWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyPayrollRegistries(where: PayrollRegistryWhereInput): BatchPayload!
-  deleteManyPayrollTypes(where: PayrollTypeWhereInput): BatchPayload!
-  deleteManyPayrollConfigs(where: PayrollConfigWhereInput): BatchPayload!
-  deleteManyEmployees(where: EmployeeWhereInput): BatchPayload!
   deleteManyCompanies(where: CompanyWhereInput): BatchPayload!
+  deleteManyPayrollConfigs(where: PayrollConfigWhereInput): BatchPayload!
+  deleteManyPayrollRegistries(where: PayrollRegistryWhereInput): BatchPayload!
+  deleteManyEmployees(where: EmployeeWhereInput): BatchPayload!
+  deleteManyPayrollTypes(where: PayrollTypeWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -863,11 +930,6 @@ input PayrollConfigCreateInput {
   types: PayrollTypeCreateManyInput
 }
 
-input PayrollConfigCreateOneInput {
-  create: PayrollConfigCreateInput
-  connect: PayrollConfigWhereUniqueInput
-}
-
 """An edge in a connection."""
 type PayrollConfigEdge {
   """The item at the end of the edge."""
@@ -877,98 +939,43 @@ type PayrollConfigEdge {
   cursor: String!
 }
 
-enum PayrollConfigOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type PayrollConfigPreviousValues {
+type PayrollConfigEmbedded implements Node {
   id: ID!
   name: String!
+  types(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType!]
   updatedAt: DateTime!
   createdAt: DateTime!
 }
 
-type PayrollConfigSubscriptionPayload {
-  mutation: MutationType!
-  node: PayrollConfig
-  updatedFields: [String!]
-  previousValues: PayrollConfigPreviousValues
+input PayrollConfigEmbeddedCreateInput {
+  id: ID
+  name: String!
+  types: PayrollTypeCreateManyInput
 }
 
-input PayrollConfigSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [PayrollConfigSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PayrollConfigSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PayrollConfigSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: PayrollConfigWhereInput
+input PayrollConfigEmbeddedCreateOneInput {
+  create: PayrollConfigEmbeddedCreateInput
 }
 
-input PayrollConfigUpdateDataInput {
+input PayrollConfigEmbeddedUpdateDataInput {
   name: String
   types: PayrollTypeUpdateManyInput
 }
 
-input PayrollConfigUpdateInput {
-  name: String
-  types: PayrollTypeUpdateManyInput
+input PayrollConfigEmbeddedUpdateOneRequiredInput {
+  create: PayrollConfigEmbeddedCreateInput
+  update: PayrollConfigEmbeddedUpdateDataInput
+  upsert: PayrollConfigEmbeddedUpsertNestedInput
 }
 
-input PayrollConfigUpdateManyMutationInput {
-  name: String
+input PayrollConfigEmbeddedUpsertNestedInput {
+  update: PayrollConfigEmbeddedUpdateDataInput!
+  create: PayrollConfigEmbeddedCreateInput!
 }
 
-input PayrollConfigUpdateOneRequiredInput {
-  create: PayrollConfigCreateInput
-  connect: PayrollConfigWhereUniqueInput
-  update: PayrollConfigUpdateDataInput
-  upsert: PayrollConfigUpsertNestedInput
-}
-
-input PayrollConfigUpsertNestedInput {
-  update: PayrollConfigUpdateDataInput!
-  create: PayrollConfigCreateInput!
-}
-
-input PayrollConfigWhereInput {
+input PayrollConfigEmbeddedWhereInput {
   """Logical AND on all given filters."""
-  AND: [PayrollConfigWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PayrollConfigWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PayrollConfigWhereInput!]
+  AND: [PayrollConfigEmbeddedWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -1093,9 +1100,197 @@ input PayrollConfigWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  types_every: PayrollTypeWhereInput
   types_some: PayrollTypeWhereInput
-  types_none: PayrollTypeWhereInput
+}
+
+enum PayrollConfigOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PayrollConfigPreviousValues {
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type PayrollConfigSubscriptionPayload {
+  mutation: MutationType!
+  node: PayrollConfig
+  updatedFields: [String!]
+  previousValues: PayrollConfigPreviousValues
+}
+
+input PayrollConfigSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PayrollConfigSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PayrollConfigWhereInput
+}
+
+input PayrollConfigUpdateInput {
+  name: String
+  types: PayrollTypeUpdateManyInput
+}
+
+input PayrollConfigUpdateManyMutationInput {
+  name: String
+}
+
+input PayrollConfigWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PayrollConfigWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  types_some: PayrollTypeWhereInput
 }
 
 input PayrollConfigWhereUniqueInput {
@@ -1106,8 +1301,8 @@ type PayrollRegistry implements Node {
   id: ID!
   name: String!
   active: Boolean!
-  company: Company!
-  config: PayrollConfig!
+  company: CompanyEmbedded!
+  config: PayrollConfigEmbedded!
   employees(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employee!]
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1126,9 +1321,9 @@ type PayrollRegistryConnection {
 input PayrollRegistryCreateInput {
   id: ID
   name: String!
-  active: Boolean!
-  company: CompanyCreateOneInput!
-  config: PayrollConfigCreateOneInput!
+  active: Boolean
+  company: CompanyEmbeddedCreateOneInput!
+  config: PayrollConfigEmbeddedCreateOneInput!
   employees: EmployeeCreateManyInput
 }
 
@@ -1173,12 +1368,6 @@ input PayrollRegistrySubscriptionWhereInput {
   """Logical AND on all given filters."""
   AND: [PayrollRegistrySubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
-  OR: [PayrollRegistrySubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PayrollRegistrySubscriptionWhereInput!]
-
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
@@ -1204,8 +1393,8 @@ input PayrollRegistrySubscriptionWhereInput {
 input PayrollRegistryUpdateInput {
   name: String
   active: Boolean
-  company: CompanyUpdateOneRequiredInput
-  config: PayrollConfigUpdateOneRequiredInput
+  company: CompanyEmbeddedUpdateOneRequiredInput
+  config: PayrollConfigEmbeddedUpdateOneRequiredInput
   employees: EmployeeUpdateManyInput
 }
 
@@ -1217,12 +1406,6 @@ input PayrollRegistryUpdateManyMutationInput {
 input PayrollRegistryWhereInput {
   """Logical AND on all given filters."""
   AND: [PayrollRegistryWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PayrollRegistryWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PayrollRegistryWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -1351,11 +1534,9 @@ input PayrollRegistryWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  company: CompanyWhereInput
-  config: PayrollConfigWhereInput
-  employees_every: EmployeeWhereInput
+  company: CompanyEmbeddedWhereInput
+  config: PayrollConfigEmbeddedWhereInput
   employees_some: EmployeeWhereInput
-  employees_none: EmployeeWhereInput
 }
 
 input PayrollRegistryWhereUniqueInput {
@@ -1409,10 +1590,6 @@ enum PayrollTypeOrderByInput {
   operator_DESC
   value_ASC
   value_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type PayrollTypePreviousValues {
@@ -1586,12 +1763,6 @@ input PayrollTypeSubscriptionWhereInput {
   """Logical AND on all given filters."""
   AND: [PayrollTypeSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
-  OR: [PayrollTypeSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PayrollTypeSubscriptionWhereInput!]
-
   """
   The subscription event gets dispatched when it's listed in mutation_in
   """
@@ -1669,12 +1840,6 @@ input PayrollTypeUpsertWithWhereUniqueNestedInput {
 input PayrollTypeWhereInput {
   """Logical AND on all given filters."""
   AND: [PayrollTypeWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [PayrollTypeWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [PayrollTypeWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -1834,23 +1999,23 @@ enum Permission {
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  payrollRegistries(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollRegistry]!
-  payrollTypes(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType]!
-  payrollConfigs(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollConfig]!
-  employees(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employee]!
   companies(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Company]!
+  payrollConfigs(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollConfig]!
+  payrollRegistries(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollRegistry]!
+  employees(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employee]!
+  payrollTypes(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType]!
   user(where: UserWhereUniqueInput!): User
-  payrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
-  payrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
-  payrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
-  employee(where: EmployeeWhereUniqueInput!): Employee
   company(where: CompanyWhereUniqueInput!): Company
+  payrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
+  payrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
+  employee(where: EmployeeWhereUniqueInput!): Employee
+  payrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  payrollRegistriesConnection(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollRegistryConnection!
-  payrollTypesConnection(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollTypeConnection!
-  payrollConfigsConnection(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollConfigConnection!
-  employeesConnection(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmployeeConnection!
   companiesConnection(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CompanyConnection!
+  payrollConfigsConnection(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollConfigConnection!
+  payrollRegistriesConnection(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollRegistryConnection!
+  employeesConnection(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmployeeConnection!
+  payrollTypesConnection(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollTypeConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1861,11 +2026,11 @@ type Query {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  payrollRegistry(where: PayrollRegistrySubscriptionWhereInput): PayrollRegistrySubscriptionPayload
-  payrollType(where: PayrollTypeSubscriptionWhereInput): PayrollTypeSubscriptionPayload
-  payrollConfig(where: PayrollConfigSubscriptionWhereInput): PayrollConfigSubscriptionPayload
-  employee(where: EmployeeSubscriptionWhereInput): EmployeeSubscriptionPayload
   company(where: CompanySubscriptionWhereInput): CompanySubscriptionPayload
+  payrollConfig(where: PayrollConfigSubscriptionWhereInput): PayrollConfigSubscriptionPayload
+  payrollRegistry(where: PayrollRegistrySubscriptionWhereInput): PayrollRegistrySubscriptionPayload
+  employee(where: EmployeeSubscriptionWhereInput): EmployeeSubscriptionPayload
+  payrollType(where: PayrollTypeSubscriptionWhereInput): PayrollTypeSubscriptionPayload
 }
 
 type User implements Node {
@@ -1924,10 +2089,6 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type UserPreviousValues {
@@ -1950,12 +2111,6 @@ type UserSubscriptionPayload {
 input UserSubscriptionWhereInput {
   """Logical AND on all given filters."""
   AND: [UserSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [UserSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [UserSubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -2004,12 +2159,6 @@ input UserUpdatepermissionsInput {
 input UserWhereInput {
   """Logical AND on all given filters."""
   AND: [UserWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [UserWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [UserWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""

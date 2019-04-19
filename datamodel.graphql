@@ -7,8 +7,8 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
-type User {
-  id: ID! @unique
+type User @db(name: "users") {
+  id: ID! @id
   name: String!
   email: String! @unique
   password: String!
@@ -17,24 +17,30 @@ type User {
   permissions: [Permission]
 }
 
-type Employee {
-  id: ID! @unique
+type Employee @db(name: "employees") {
+  id: ID! @id
   first_name: String!
   last_name: String!
-  active: Boolean!
+  active: Boolean! @default(value: true)
   email: String! @unique
 }
 
-type Company {
-  id: ID! @unique
-  active: Boolean!
+type Company @db(name: "companies") {
+  id: ID! @id
+  active: Boolean! @default(value: true)
+  name: String!
+}
+
+type CompanyEmbedded @embedded {
+  id: ID! @id
+  active: Boolean! @default(value: true)
   name: String!
 }
 
 # Salary, social insurance
 # discounts
-type PayrollType {
-  id: ID! @unique
+type PayrollType @db(name: "payroll_type"){
+  id: ID! @id
   type: String!
   operator: String!
   value: Float!
@@ -42,24 +48,33 @@ type PayrollType {
 
 # Payroll template that groups
 # payroll types
-type PayrollConfig {
-  id: ID! @unique
+type PayrollConfig @db(name: "payroll_config") {
+  id: ID! @id
   name: String!
-  types: [PayrollType!]
-  updatedAt: DateTime!
-  createdAt: DateTime!
+  types: [PayrollType!] @relation(link: INLINE)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
 
+# Payroll template that groups
+# payroll types
+type PayrollConfigEmbedded @embedded {
+  id: ID! @id
+  name: String!
+  types: [PayrollType!] @relation(link: INLINE)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 # all types of payrolls inside
 # a company
-type PayrollRegistry {
-  id: ID! @unique
+type PayrollRegistry @db(name: "payroll_registry") {
+  id: ID! @id
   name: String!
-  active: Boolean!
-  company: Company!
-  config: PayrollConfig!
-  employees: [Employee!]
-  updatedAt: DateTime!
-  createdAt: DateTime!
+  active: Boolean! @default(value: true)
+  company: CompanyEmbedded! 
+  config: PayrollConfigEmbedded!
+  employees: [Employee!] @relation(link: INLINE)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
