@@ -23,12 +23,18 @@ type Employee @db(name: "employees") {
   last_name: String!
   active: Boolean! @default(value: true)
   email: String! @unique
+  createdBy: User! @relation(link: INLINE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Company @db(name: "companies") {
   id: ID! @id
   active: Boolean! @default(value: true)
   name: String!
+  createdBy: User! @relation(link: INLINE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type CompanyEmbedded @embedded {

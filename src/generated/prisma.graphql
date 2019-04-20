@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Thu Apr 18 2019 13:10:48 GMT-0600 (Central Standard Time)
+# timestamp: Fri Apr 19 2019 20:06:18 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -34,6 +34,9 @@ type Company implements Node {
   id: ID!
   active: Boolean!
   name: String!
+  createdBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -50,6 +53,7 @@ input CompanyCreateInput {
   id: ID
   active: Boolean
   name: String!
+  createdBy: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -189,12 +193,18 @@ enum CompanyOrderByInput {
   active_DESC
   name_ASC
   name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CompanyPreviousValues {
   id: ID!
   active: Boolean!
   name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type CompanySubscriptionPayload {
@@ -233,6 +243,7 @@ input CompanySubscriptionWhereInput {
 input CompanyUpdateInput {
   active: Boolean
   name: String
+  createdBy: UserUpdateOneRequiredInput
 }
 
 input CompanyUpdateManyMutationInput {
@@ -327,6 +338,51 @@ input CompanyWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdBy: UserWhereInput
 }
 
 input CompanyWhereUniqueInput {
@@ -341,6 +397,9 @@ type Employee implements Node {
   last_name: String!
   active: Boolean!
   email: String!
+  createdBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -359,6 +418,7 @@ input EmployeeCreateInput {
   last_name: String!
   active: Boolean
   email: String!
+  createdBy: UserCreateOneInput!
 }
 
 input EmployeeCreateManyInput {
@@ -386,6 +446,10 @@ enum EmployeeOrderByInput {
   active_DESC
   email_ASC
   email_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type EmployeePreviousValues {
@@ -394,6 +458,8 @@ type EmployeePreviousValues {
   last_name: String!
   active: Boolean!
   email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input EmployeeScalarWhereInput {
@@ -569,6 +635,50 @@ input EmployeeScalarWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type EmployeeSubscriptionPayload {
@@ -609,6 +719,7 @@ input EmployeeUpdateDataInput {
   last_name: String
   active: Boolean
   email: String
+  createdBy: UserUpdateOneRequiredInput
 }
 
 input EmployeeUpdateInput {
@@ -616,6 +727,7 @@ input EmployeeUpdateInput {
   last_name: String
   active: Boolean
   email: String
+  createdBy: UserUpdateOneRequiredInput
 }
 
 input EmployeeUpdateManyDataInput {
@@ -827,6 +939,51 @@ input EmployeeWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdBy: UserWhereInput
 }
 
 input EmployeeWhereUniqueInput {
@@ -841,41 +998,41 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createCompany(data: CompanyCreateInput!): Company!
   createPayrollConfig(data: PayrollConfigCreateInput!): PayrollConfig!
   createPayrollRegistry(data: PayrollRegistryCreateInput!): PayrollRegistry!
   createEmployee(data: EmployeeCreateInput!): Employee!
+  createUser(data: UserCreateInput!): User!
   createPayrollType(data: PayrollTypeCreateInput!): PayrollType!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCompany(data: CompanyUpdateInput!, where: CompanyWhereUniqueInput!): Company
   updatePayrollConfig(data: PayrollConfigUpdateInput!, where: PayrollConfigWhereUniqueInput!): PayrollConfig
   updatePayrollRegistry(data: PayrollRegistryUpdateInput!, where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
   updateEmployee(data: EmployeeUpdateInput!, where: EmployeeWhereUniqueInput!): Employee
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updatePayrollType(data: PayrollTypeUpdateInput!, where: PayrollTypeWhereUniqueInput!): PayrollType
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteCompany(where: CompanyWhereUniqueInput!): Company
   deletePayrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
   deletePayrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
   deleteEmployee(where: EmployeeWhereUniqueInput!): Employee
+  deleteUser(where: UserWhereUniqueInput!): User
   deletePayrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCompany(where: CompanyWhereUniqueInput!, create: CompanyCreateInput!, update: CompanyUpdateInput!): Company!
   upsertPayrollConfig(where: PayrollConfigWhereUniqueInput!, create: PayrollConfigCreateInput!, update: PayrollConfigUpdateInput!): PayrollConfig!
   upsertPayrollRegistry(where: PayrollRegistryWhereUniqueInput!, create: PayrollRegistryCreateInput!, update: PayrollRegistryUpdateInput!): PayrollRegistry!
   upsertEmployee(where: EmployeeWhereUniqueInput!, create: EmployeeCreateInput!, update: EmployeeUpdateInput!): Employee!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertPayrollType(where: PayrollTypeWhereUniqueInput!, create: PayrollTypeCreateInput!, update: PayrollTypeUpdateInput!): PayrollType!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCompanies(data: CompanyUpdateManyMutationInput!, where: CompanyWhereInput): BatchPayload!
   updateManyPayrollConfigs(data: PayrollConfigUpdateManyMutationInput!, where: PayrollConfigWhereInput): BatchPayload!
   updateManyPayrollRegistries(data: PayrollRegistryUpdateManyMutationInput!, where: PayrollRegistryWhereInput): BatchPayload!
   updateManyEmployees(data: EmployeeUpdateManyMutationInput!, where: EmployeeWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyPayrollTypes(data: PayrollTypeUpdateManyMutationInput!, where: PayrollTypeWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCompanies(where: CompanyWhereInput): BatchPayload!
   deleteManyPayrollConfigs(where: PayrollConfigWhereInput): BatchPayload!
   deleteManyPayrollRegistries(where: PayrollRegistryWhereInput): BatchPayload!
   deleteManyEmployees(where: EmployeeWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyPayrollTypes(where: PayrollTypeWhereInput): BatchPayload!
 }
 
@@ -1998,23 +2155,23 @@ enum Permission {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   companies(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Company]!
   payrollConfigs(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollConfig]!
   payrollRegistries(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollRegistry]!
   employees(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employee]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   payrollTypes(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType]!
-  user(where: UserWhereUniqueInput!): User
   company(where: CompanyWhereUniqueInput!): Company
   payrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
   payrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
   employee(where: EmployeeWhereUniqueInput!): Employee
+  user(where: UserWhereUniqueInput!): User
   payrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   companiesConnection(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CompanyConnection!
   payrollConfigsConnection(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollConfigConnection!
   payrollRegistriesConnection(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollRegistryConnection!
   employeesConnection(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmployeeConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   payrollTypesConnection(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollTypeConnection!
 
   """Fetches an object given its ID"""
@@ -2025,11 +2182,11 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   company(where: CompanySubscriptionWhereInput): CompanySubscriptionPayload
   payrollConfig(where: PayrollConfigSubscriptionWhereInput): PayrollConfigSubscriptionPayload
   payrollRegistry(where: PayrollRegistrySubscriptionWhereInput): PayrollRegistrySubscriptionPayload
   employee(where: EmployeeSubscriptionWhereInput): EmployeeSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   payrollType(where: PayrollTypeSubscriptionWhereInput): PayrollTypeSubscriptionPayload
 }
 
@@ -2061,6 +2218,11 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
@@ -2134,6 +2296,15 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
 input UserUpdateInput {
   name: String
   email: String
@@ -2152,8 +2323,20 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {

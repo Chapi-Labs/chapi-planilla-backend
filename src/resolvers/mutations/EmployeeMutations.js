@@ -10,7 +10,8 @@ const EmployeeMutations = {
       {
         data: {
           ...args,
-          active: true
+          active: true,
+          createdBy: { connect: { id: ctx.request.userId }}
         }
       },
       info
