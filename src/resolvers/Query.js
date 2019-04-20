@@ -35,6 +35,15 @@ const Query = {
     const data = await ctx.db.query.companies(args, `{ id name }`);
     const companiesRender = data.map(c => ({ id: c.id, value: c.id, label: c.name}));
     return companiesRender;
+  },
+  async employeesSelect(parent, args, ctx, info) {
+    // 1. Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!');
+    }
+    const data = await ctx.db.query.employees(args, `{ id first_name last_name }`);
+    const render = data.map(c => ({ id: c.id, value: c.id, label: c.first_name + c.last_name }));
+    return render;
   }
 };
 

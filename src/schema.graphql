@@ -33,4 +33,5 @@ type Query {
   users: [User]!
   employees: [Employee]!
   companies(where: CompanyWhereInput): [SelectRender]!
+  employeesSelect(where: EmployeeWhereInput): [SelectRender]!
 }
