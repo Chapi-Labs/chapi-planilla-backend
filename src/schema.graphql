@@ -22,10 +22,14 @@ type Mutation {
     confirmPassword: String!
   ): User!
   updatePermissions(permissions: [Permission], userId: ID!): User
-  createEmployee(first_name: String!, last_name: String!,  email: String!): Employee!
+  createEmployee(
+    first_name: String!, last_name: String!, email: String!,
+    hire_date: String, legal_id: String!, company: String,
+    payroll_frequency: String, base_salary: Float
+  ): Employee!
   createCompany(name: String!): Company!
   updateEmployee(id: ID!, first_name: String, last_name: String, email: String): Employee
-  createPayrollConfig(name: String!): PayrollConfig
+  createPayrollConfig(name: String!, frequency: String): PayrollConfig
   #createPayrollRegistry(name: String!, )
 }
 

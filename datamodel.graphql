@@ -7,6 +7,14 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+enum SalaryFrequency {
+  MONTHLY
+  DAILY
+  WEEKLY
+  BI_WEEKLY
+  HOURLY
+}
+
 type User @db(name: "users") {
   id: ID! @id
   name: String!
@@ -28,7 +36,7 @@ type Employee @db(name: "employees") {
   base_salary: Float
   salaries: [Salary!]
   company: CompanyEmbedded
-  config: PayrollConfigEmbedded
+  payroll_frequency: PayrollConfigEmbedded
   createdBy: User! @relation(link: INLINE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -46,22 +54,31 @@ type Company @db(name: "companies") {
 type Salary @embedded {
   title: String
   base_value: Float!
-  increases: Float
-  decreases: Float
+  detail: [PayrollTypeEmbedded]
   total: Float
   createdAt: DateTime! @createdAt
 }
 
 type CompanyEmbedded @embedded {
-  id: ID! @id
+  _id: ID
   active: Boolean! @default(value: true)
   name: String!
 }
 
 # Salary, social insurance
 # discounts
+# type can be hours or money
 type PayrollType @db(name: "payroll_type"){
   id: ID! @id
+  name: String!
+  type: String!
+  operator: String!
+  value: Float!
+}
+
+type PayrollTypeEmbedded @embedded {
+  id: ID! @id
+  name: String!
   type: String!
   operator: String!
   value: Float!
@@ -69,9 +86,11 @@ type PayrollType @db(name: "payroll_type"){
 
 # Payroll template that groups
 # payroll types
+# hourly, monthly, 
 type PayrollConfig @db(name: "payroll_config") {
   id: ID! @id
   name: String!
+  frequency: SalaryFrequency!
   types: [PayrollType!] @relation(link: INLINE)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
@@ -80,11 +99,10 @@ type PayrollConfig @db(name: "payroll_config") {
 # Payroll template that groups
 # payroll types
 type PayrollConfigEmbedded @embedded {
-  id: ID! @id
+  _id: ID
   name: String!
+  frequency: SalaryFrequency!
   types: [PayrollType!] @relation(link: INLINE)
-  updatedAt: DateTime! @updatedAt
-  createdAt: DateTime! @createdAt
 }
 
 # all types of payrolls inside
