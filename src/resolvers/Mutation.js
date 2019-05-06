@@ -1,11 +1,13 @@
-const UserMutation = require('./mutations/UserMutations');
-const EmployeeMutation = require('./mutations/EmployeeMutations');
 const CompanyMutation = require('./mutations/CompanyMutations');
+const EmployeeMutation = require('./mutations/EmployeeMutations');
+const PayrollMutation = require('./mutations/PayrollConfigMutation');
+const UserMutation = require('./mutations/UserMutations');
 
 const Mutation = {
-  ...UserMutation,
+  ...CompanyMutation,
   ...EmployeeMutation,
-  ...CompanyMutation
+  ...PayrollMutation,
+  ...UserMutation,
 };
 
 module.exports = Mutation;

@@ -25,6 +25,7 @@ type Mutation {
   createEmployee(first_name: String!, last_name: String!,  email: String!): Employee!
   createCompany(name: String!): Company!
   updateEmployee(id: ID!, first_name: String, last_name: String, email: String): Employee
+  createPayrollConfig(name: String!): PayrollConfig
   #createPayrollRegistry(name: String!, )
 }
 
@@ -34,4 +35,5 @@ type Query {
   employees: [Employee]!
   companies(where: CompanyWhereInput): [SelectRender]!
   employeesSelect(where: EmployeeWhereInput): [SelectRender]!
+  payrollConfigSelect(where: PayrollConfigWhereInput): [SelectRender]!
 }

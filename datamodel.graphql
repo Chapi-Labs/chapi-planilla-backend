@@ -21,8 +21,14 @@ type Employee @db(name: "employees") {
   id: ID! @id
   first_name: String!
   last_name: String!
+  legal_id: String @unique
+  hire_date: DateTime
   active: Boolean! @default(value: true)
-  email: String! @unique
+  email: String @unique
+  base_salary: Float
+  salaries: [Salary!]
+  company: CompanyEmbedded
+  config: PayrollConfigEmbedded
   createdBy: User! @relation(link: INLINE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -35,6 +41,15 @@ type Company @db(name: "companies") {
   createdBy: User! @relation(link: INLINE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+}
+
+type Salary @embedded {
+  title: String
+  base_value: Float!
+  increases: Float
+  decreases: Float
+  total: Float
+  createdAt: DateTime! @createdAt
 }
 
 type CompanyEmbedded @embedded {

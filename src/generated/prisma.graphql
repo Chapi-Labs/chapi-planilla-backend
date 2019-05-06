@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Fri Apr 19 2019 20:06:18 GMT-0600 (Central Standard Time)
+# timestamp: Sun May 05 2019 17:50:54 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -84,6 +84,13 @@ input CompanyEmbeddedCreateOneInput {
 input CompanyEmbeddedUpdateDataInput {
   active: Boolean
   name: String
+}
+
+input CompanyEmbeddedUpdateOneInput {
+  create: CompanyEmbeddedCreateInput
+  delete: Boolean
+  update: CompanyEmbeddedUpdateDataInput
+  upsert: CompanyEmbeddedUpsertNestedInput
 }
 
 input CompanyEmbeddedUpdateOneRequiredInput {
@@ -395,8 +402,14 @@ type Employee implements Node {
   id: ID!
   first_name: String!
   last_name: String!
+  legal_id: String
+  hire_date: DateTime
   active: Boolean!
-  email: String!
+  email: String
+  base_salary: Float
+  salaries: [Salary!]
+  company: CompanyEmbedded
+  config: PayrollConfigEmbedded
   createdBy: User!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -416,8 +429,14 @@ input EmployeeCreateInput {
   id: ID
   first_name: String!
   last_name: String!
+  legal_id: String
+  hire_date: DateTime
   active: Boolean
-  email: String!
+  email: String
+  base_salary: Float
+  salaries: SalaryCreateManyInput
+  company: CompanyEmbeddedCreateOneInput
+  config: PayrollConfigEmbeddedCreateOneInput
   createdBy: UserCreateOneInput!
 }
 
@@ -442,10 +461,16 @@ enum EmployeeOrderByInput {
   first_name_DESC
   last_name_ASC
   last_name_DESC
+  legal_id_ASC
+  legal_id_DESC
+  hire_date_ASC
+  hire_date_DESC
   active_ASC
   active_DESC
   email_ASC
   email_DESC
+  base_salary_ASC
+  base_salary_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -456,8 +481,11 @@ type EmployeePreviousValues {
   id: ID!
   first_name: String!
   last_name: String!
+  legal_id: String
+  hire_date: DateTime
   active: Boolean!
-  email: String!
+  email: String
+  base_salary: Float
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -591,6 +619,68 @@ input EmployeeScalarWhereInput {
 
   """All values not ending with the given string."""
   last_name_not_ends_with: String
+  legal_id: String
+
+  """All values that are not equal to given value."""
+  legal_id_not: String
+
+  """All values that are contained in given list."""
+  legal_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  legal_id_not_in: [String!]
+
+  """All values less than the given value."""
+  legal_id_lt: String
+
+  """All values less than or equal the given value."""
+  legal_id_lte: String
+
+  """All values greater than the given value."""
+  legal_id_gt: String
+
+  """All values greater than or equal the given value."""
+  legal_id_gte: String
+
+  """All values containing the given string."""
+  legal_id_contains: String
+
+  """All values not containing the given string."""
+  legal_id_not_contains: String
+
+  """All values starting with the given string."""
+  legal_id_starts_with: String
+
+  """All values not starting with the given string."""
+  legal_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  legal_id_ends_with: String
+
+  """All values not ending with the given string."""
+  legal_id_not_ends_with: String
+  hire_date: DateTime
+
+  """All values that are not equal to given value."""
+  hire_date_not: DateTime
+
+  """All values that are contained in given list."""
+  hire_date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  hire_date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  hire_date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  hire_date_lte: DateTime
+
+  """All values greater than the given value."""
+  hire_date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  hire_date_gte: DateTime
   active: Boolean
 
   """All values that are not equal to given value."""
@@ -635,6 +725,28 @@ input EmployeeScalarWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  base_salary: Float
+
+  """All values that are not equal to given value."""
+  base_salary_not: Float
+
+  """All values that are contained in given list."""
+  base_salary_in: [Float!]
+
+  """All values that are not contained in given list."""
+  base_salary_not_in: [Float!]
+
+  """All values less than the given value."""
+  base_salary_lt: Float
+
+  """All values less than or equal the given value."""
+  base_salary_lte: Float
+
+  """All values greater than the given value."""
+  base_salary_gt: Float
+
+  """All values greater than or equal the given value."""
+  base_salary_gte: Float
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -717,24 +829,39 @@ input EmployeeSubscriptionWhereInput {
 input EmployeeUpdateDataInput {
   first_name: String
   last_name: String
+  legal_id: String
+  hire_date: DateTime
   active: Boolean
   email: String
+  base_salary: Float
+  salaries: SalaryUpdateManyInput
+  company: CompanyEmbeddedUpdateOneInput
+  config: PayrollConfigEmbeddedUpdateOneInput
   createdBy: UserUpdateOneRequiredInput
 }
 
 input EmployeeUpdateInput {
   first_name: String
   last_name: String
+  legal_id: String
+  hire_date: DateTime
   active: Boolean
   email: String
+  base_salary: Float
+  salaries: SalaryUpdateManyInput
+  company: CompanyEmbeddedUpdateOneInput
+  config: PayrollConfigEmbeddedUpdateOneInput
   createdBy: UserUpdateOneRequiredInput
 }
 
 input EmployeeUpdateManyDataInput {
   first_name: String
   last_name: String
+  legal_id: String
+  hire_date: DateTime
   active: Boolean
   email: String
+  base_salary: Float
 }
 
 input EmployeeUpdateManyInput {
@@ -752,8 +879,11 @@ input EmployeeUpdateManyInput {
 input EmployeeUpdateManyMutationInput {
   first_name: String
   last_name: String
+  legal_id: String
+  hire_date: DateTime
   active: Boolean
   email: String
+  base_salary: Float
 }
 
 input EmployeeUpdateManyWithWhereNestedInput {
@@ -895,6 +1025,68 @@ input EmployeeWhereInput {
 
   """All values not ending with the given string."""
   last_name_not_ends_with: String
+  legal_id: String
+
+  """All values that are not equal to given value."""
+  legal_id_not: String
+
+  """All values that are contained in given list."""
+  legal_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  legal_id_not_in: [String!]
+
+  """All values less than the given value."""
+  legal_id_lt: String
+
+  """All values less than or equal the given value."""
+  legal_id_lte: String
+
+  """All values greater than the given value."""
+  legal_id_gt: String
+
+  """All values greater than or equal the given value."""
+  legal_id_gte: String
+
+  """All values containing the given string."""
+  legal_id_contains: String
+
+  """All values not containing the given string."""
+  legal_id_not_contains: String
+
+  """All values starting with the given string."""
+  legal_id_starts_with: String
+
+  """All values not starting with the given string."""
+  legal_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  legal_id_ends_with: String
+
+  """All values not ending with the given string."""
+  legal_id_not_ends_with: String
+  hire_date: DateTime
+
+  """All values that are not equal to given value."""
+  hire_date_not: DateTime
+
+  """All values that are contained in given list."""
+  hire_date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  hire_date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  hire_date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  hire_date_lte: DateTime
+
+  """All values greater than the given value."""
+  hire_date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  hire_date_gte: DateTime
   active: Boolean
 
   """All values that are not equal to given value."""
@@ -939,6 +1131,28 @@ input EmployeeWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  base_salary: Float
+
+  """All values that are not equal to given value."""
+  base_salary_not: Float
+
+  """All values that are contained in given list."""
+  base_salary_in: [Float!]
+
+  """All values that are not contained in given list."""
+  base_salary_not_in: [Float!]
+
+  """All values less than the given value."""
+  base_salary_lt: Float
+
+  """All values less than or equal the given value."""
+  base_salary_lte: Float
+
+  """All values greater than the given value."""
+  base_salary_gt: Float
+
+  """All values greater than or equal the given value."""
+  base_salary_gte: Float
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -983,11 +1197,17 @@ input EmployeeWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  salaries_some: SalaryWhereInput
+  salaries_every: SalaryRestrictedWhereInput
+  salaries_none: SalaryRestrictedWhereInput
+  company: CompanyEmbeddedWhereInput
+  config: PayrollConfigEmbeddedWhereInput
   createdBy: UserWhereInput
 }
 
 input EmployeeWhereUniqueInput {
   id: ID
+  legal_id: String
   email: String
 }
 
@@ -1117,6 +1337,13 @@ input PayrollConfigEmbeddedCreateOneInput {
 input PayrollConfigEmbeddedUpdateDataInput {
   name: String
   types: PayrollTypeUpdateManyInput
+}
+
+input PayrollConfigEmbeddedUpdateOneInput {
+  create: PayrollConfigEmbeddedCreateInput
+  delete: Boolean
+  update: PayrollConfigEmbeddedUpdateDataInput
+  upsert: PayrollConfigEmbeddedUpsertNestedInput
 }
 
 input PayrollConfigEmbeddedUpdateOneRequiredInput {
@@ -2179,6 +2406,517 @@ type Query {
     """The ID of an object"""
     id: ID!
   ): Node
+}
+
+type Salary {
+  title: String
+  base_value: Float!
+  increases: Float
+  decreases: Float
+  total: Float
+  createdAt: DateTime!
+}
+
+input SalaryCreateInput {
+  title: String
+  base_value: Float!
+  increases: Float
+  decreases: Float
+  total: Float
+}
+
+input SalaryCreateManyInput {
+  create: [SalaryCreateInput!]
+}
+
+input SalaryRestrictedWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SalaryRestrictedWhereInput!]
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  base_value: Float
+
+  """All values that are not equal to given value."""
+  base_value_not: Float
+
+  """All values that are contained in given list."""
+  base_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  base_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  base_value_lt: Float
+
+  """All values less than or equal the given value."""
+  base_value_lte: Float
+
+  """All values greater than the given value."""
+  base_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  base_value_gte: Float
+  increases: Float
+
+  """All values that are not equal to given value."""
+  increases_not: Float
+
+  """All values that are contained in given list."""
+  increases_in: [Float!]
+
+  """All values that are not contained in given list."""
+  increases_not_in: [Float!]
+
+  """All values less than the given value."""
+  increases_lt: Float
+
+  """All values less than or equal the given value."""
+  increases_lte: Float
+
+  """All values greater than the given value."""
+  increases_gt: Float
+
+  """All values greater than or equal the given value."""
+  increases_gte: Float
+  decreases: Float
+
+  """All values that are not equal to given value."""
+  decreases_not: Float
+
+  """All values that are contained in given list."""
+  decreases_in: [Float!]
+
+  """All values that are not contained in given list."""
+  decreases_not_in: [Float!]
+
+  """All values less than the given value."""
+  decreases_lt: Float
+
+  """All values less than or equal the given value."""
+  decreases_lte: Float
+
+  """All values greater than the given value."""
+  decreases_gt: Float
+
+  """All values greater than or equal the given value."""
+  decreases_gte: Float
+  total: Float
+
+  """All values that are not equal to given value."""
+  total_not: Float
+
+  """All values that are contained in given list."""
+  total_in: [Float!]
+
+  """All values that are not contained in given list."""
+  total_not_in: [Float!]
+
+  """All values less than the given value."""
+  total_lt: Float
+
+  """All values less than or equal the given value."""
+  total_lte: Float
+
+  """All values greater than the given value."""
+  total_gt: Float
+
+  """All values greater than or equal the given value."""
+  total_gte: Float
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+input SalaryScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SalaryScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [SalaryScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [SalaryScalarWhereInput!]
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  base_value: Float
+
+  """All values that are not equal to given value."""
+  base_value_not: Float
+
+  """All values that are contained in given list."""
+  base_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  base_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  base_value_lt: Float
+
+  """All values less than or equal the given value."""
+  base_value_lte: Float
+
+  """All values greater than the given value."""
+  base_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  base_value_gte: Float
+  increases: Float
+
+  """All values that are not equal to given value."""
+  increases_not: Float
+
+  """All values that are contained in given list."""
+  increases_in: [Float!]
+
+  """All values that are not contained in given list."""
+  increases_not_in: [Float!]
+
+  """All values less than the given value."""
+  increases_lt: Float
+
+  """All values less than or equal the given value."""
+  increases_lte: Float
+
+  """All values greater than the given value."""
+  increases_gt: Float
+
+  """All values greater than or equal the given value."""
+  increases_gte: Float
+  decreases: Float
+
+  """All values that are not equal to given value."""
+  decreases_not: Float
+
+  """All values that are contained in given list."""
+  decreases_in: [Float!]
+
+  """All values that are not contained in given list."""
+  decreases_not_in: [Float!]
+
+  """All values less than the given value."""
+  decreases_lt: Float
+
+  """All values less than or equal the given value."""
+  decreases_lte: Float
+
+  """All values greater than the given value."""
+  decreases_gt: Float
+
+  """All values greater than or equal the given value."""
+  decreases_gte: Float
+  total: Float
+
+  """All values that are not equal to given value."""
+  total_not: Float
+
+  """All values that are contained in given list."""
+  total_in: [Float!]
+
+  """All values that are not contained in given list."""
+  total_not_in: [Float!]
+
+  """All values less than the given value."""
+  total_lt: Float
+
+  """All values less than or equal the given value."""
+  total_lte: Float
+
+  """All values greater than the given value."""
+  total_gt: Float
+
+  """All values greater than or equal the given value."""
+  total_gte: Float
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+input SalaryUpdateManyDataInput {
+  title: String
+  base_value: Float
+  increases: Float
+  decreases: Float
+  total: Float
+}
+
+input SalaryUpdateManyInput {
+  create: [SalaryCreateInput!]
+  updateMany: [SalaryUpdateManyWithWhereNestedInput!]
+  deleteMany: [SalaryScalarWhereInput!]
+}
+
+input SalaryUpdateManyWithWhereNestedInput {
+  where: SalaryScalarWhereInput!
+  data: SalaryUpdateManyDataInput!
+}
+
+input SalaryWhereInput {
+  """Logical AND on all given filters."""
+  AND: [SalaryWhereInput!]
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  base_value: Float
+
+  """All values that are not equal to given value."""
+  base_value_not: Float
+
+  """All values that are contained in given list."""
+  base_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  base_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  base_value_lt: Float
+
+  """All values less than or equal the given value."""
+  base_value_lte: Float
+
+  """All values greater than the given value."""
+  base_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  base_value_gte: Float
+  increases: Float
+
+  """All values that are not equal to given value."""
+  increases_not: Float
+
+  """All values that are contained in given list."""
+  increases_in: [Float!]
+
+  """All values that are not contained in given list."""
+  increases_not_in: [Float!]
+
+  """All values less than the given value."""
+  increases_lt: Float
+
+  """All values less than or equal the given value."""
+  increases_lte: Float
+
+  """All values greater than the given value."""
+  increases_gt: Float
+
+  """All values greater than or equal the given value."""
+  increases_gte: Float
+  decreases: Float
+
+  """All values that are not equal to given value."""
+  decreases_not: Float
+
+  """All values that are contained in given list."""
+  decreases_in: [Float!]
+
+  """All values that are not contained in given list."""
+  decreases_not_in: [Float!]
+
+  """All values less than the given value."""
+  decreases_lt: Float
+
+  """All values less than or equal the given value."""
+  decreases_lte: Float
+
+  """All values greater than the given value."""
+  decreases_gt: Float
+
+  """All values greater than or equal the given value."""
+  decreases_gte: Float
+  total: Float
+
+  """All values that are not equal to given value."""
+  total_not: Float
+
+  """All values that are contained in given list."""
+  total_in: [Float!]
+
+  """All values that are not contained in given list."""
+  total_not_in: [Float!]
+
+  """All values less than the given value."""
+  total_lt: Float
+
+  """All values less than or equal the given value."""
+  total_lte: Float
+
+  """All values greater than the given value."""
+  total_gt: Float
+
+  """All values greater than or equal the given value."""
+  total_gte: Float
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
 }
 
 type Subscription {
