@@ -71,12 +71,20 @@ const EmployeeMutations = {
       throw new Error('You must be logged in!');
     }
     const updates = { ...args };
+    
     // remove the ID from the updates
     delete updates.id;
     // run the update method
     return ctx.db.mutation.updateEmployee(
       {
-        data: updates,
+        data: {
+          ...updates,
+          company: {
+            update: {
+              name: updates.company
+            }
+          }
+        },
         where: {
           id: args.id
         }
