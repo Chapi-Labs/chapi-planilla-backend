@@ -45,6 +45,13 @@ const Query = {
     const render = data.map(c => ({ id: c.id, value: c.id, label: c.first_name + c.last_name }));
     return render;
   },
+  async companiesList(parent, args, ctx, info) {
+    // 1. Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!');
+    }
+    return ctx.db.query.companies(args, info);
+  },
   async payrollConfigSelect(parent, args, ctx, info) {
      // 1. Check if they are logged in
     if (!ctx.request.userId) {

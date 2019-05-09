@@ -42,13 +42,14 @@ type Mutation {
     company: String
   ): Employee
   createPayrollConfig(name: String!, frequency: String): PayrollConfig
-  #createPayrollRegistry(name: String!, )
+  updateCompany(id: ID!, name: String!): Company
 }
 
 type Query {
   me: User
   users: [User]!
   employees: [Employee]!
+  companiesList: [Company]!
   companies(where: CompanyWhereInput): [SelectRender]!
   employeesSelect(where: EmployeeWhereInput): [SelectRender]!
   payrollConfigSelect(where: PayrollConfigWhereInput): [SelectRender]!
