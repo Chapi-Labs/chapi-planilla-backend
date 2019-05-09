@@ -48,6 +48,7 @@ const UserMutations = {
         // 4. Set the cookie with the token
         ctx.response.cookie('token', token, {
             httpOnly: true,
+            secure: true,
             maxAge: 1000 * 60 * 60 * 24 * 365
         });
         // 5. Return the user
