@@ -1,6 +1,6 @@
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-
+const session = require('express-session');
 require('dotenv').config({ path: '.env' });
 const createServer = require('./createServer');
 const db = require('./db');
@@ -33,6 +33,14 @@ server.express.use(async (req, res, next) => {
   next();
 });
 server.express.set('trust proxy', 1) // trust first proxy
+server.express.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  })
+);
 server.start(
   {
     cors: {
