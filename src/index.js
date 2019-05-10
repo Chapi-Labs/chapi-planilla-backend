@@ -27,6 +27,7 @@ server.express.use((req, res, next) => {
 // 2. Create a middleware that populates the user on each request
 
 server.express.use(async (req, res, next) => {
+  console.log(req);
   // if they aren't logged in, skip this
   if (!req.userId) return next();
   const user = await db.query.user(
@@ -36,7 +37,7 @@ server.express.use(async (req, res, next) => {
   req.user = user;
   next();
 });
-server.express.set('trust proxy', 1) // trust first proxy
+server.express.set('trust proxy', true) // trust first proxy
 
 server.start(
   {
