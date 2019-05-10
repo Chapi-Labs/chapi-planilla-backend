@@ -35,10 +35,14 @@ server.express.use(async (req, res, next) => {
 server.express.set('trust proxy', 1) // trust first proxy
 server.express.use(
   session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    name: 'pid',
+    secret: 'some-random-secret-here',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: true,
+    }
   })
 );
 server.start(
