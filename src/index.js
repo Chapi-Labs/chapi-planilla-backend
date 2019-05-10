@@ -1,12 +1,16 @@
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const session = require('express-session');
+const cors = require('cors');
 require('dotenv').config({ path: '.env' });
 const createServer = require('./createServer');
 const db = require('./db');
 
 const server = createServer();
 
+server.express.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}))
 server.express.use(cookieParser());
 
 // decode the JWT so we can get the user Id on each request
@@ -33,24 +37,10 @@ server.express.use(async (req, res, next) => {
   next();
 });
 server.express.set('trust proxy', 1) // trust first proxy
-server.express.use(
-  session({
-    name: 'pid',
-    secret: 'some-random-secret-here',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: true,
-    }
-  })
-);
+
 server.start(
   {
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+    cors: false
   },
   deets => {
     console.log(`Server is now running on port http://localhost:${deets.port}`);
