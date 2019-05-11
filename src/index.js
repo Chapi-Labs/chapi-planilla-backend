@@ -1,16 +1,11 @@
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const cors = require('cors');
 require('dotenv').config({ path: '.env' });
 const createServer = require('./createServer');
 const db = require('./db');
 
 const server = createServer();
 
-server.express.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-}))
 server.express.use(cookieParser());
 
 // decode the JWT so we can get the user Id on each request
@@ -27,7 +22,6 @@ server.express.use((req, res, next) => {
 // 2. Create a middleware that populates the user on each request
 
 server.express.use(async (req, res, next) => {
-  console.log(req);
   // if they aren't logged in, skip this
   if (!req.userId) return next();
   const user = await db.query.user(
@@ -37,11 +31,13 @@ server.express.use(async (req, res, next) => {
   req.user = user;
   next();
 });
-server.express.set('trust proxy', true) // trust first proxy
 
 server.start(
   {
-    cors: false
+    cors: {
+      origin: process.env.FRONTEND_URL,
+      credentials: true
+    }
   },
   deets => {
     console.log(`Server is now running on port http://localhost:${deets.port}`);
