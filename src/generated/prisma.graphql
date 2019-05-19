@@ -1,7 +1,11 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Sun May 05 2019 23:25:23 GMT-0600 (Central Standard Time)
+# timestamp: Mon May 13 2019 23:30:30 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
+  count: Int!
+}
+
+type AggregateConfig {
   count: Int!
 }
 
@@ -394,6 +398,210 @@ input CompanyWhereInput {
 }
 
 input CompanyWhereUniqueInput {
+  id: ID
+}
+
+type Config implements Node {
+  id: ID!
+  tax: Tax
+  country_code: String
+  payroll_periods: Float
+}
+
+"""A connection to a list of items."""
+type ConfigConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ConfigEdge]!
+  aggregate: AggregateConfig!
+}
+
+input ConfigCreateInput {
+  id: ID
+  country_code: String
+  payroll_periods: Float
+  tax: TaxCreateOneInput
+}
+
+"""An edge in a connection."""
+type ConfigEdge {
+  """The item at the end of the edge."""
+  node: Config!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ConfigOrderByInput {
+  id_ASC
+  id_DESC
+  country_code_ASC
+  country_code_DESC
+  payroll_periods_ASC
+  payroll_periods_DESC
+}
+
+type ConfigPreviousValues {
+  id: ID!
+  country_code: String
+  payroll_periods: Float
+}
+
+type ConfigSubscriptionPayload {
+  mutation: MutationType!
+  node: Config
+  updatedFields: [String!]
+  previousValues: ConfigPreviousValues
+}
+
+input ConfigSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ConfigSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ConfigWhereInput
+}
+
+input ConfigUpdateInput {
+  country_code: String
+  payroll_periods: Float
+  tax: TaxUpdateOneInput
+}
+
+input ConfigUpdateManyMutationInput {
+  country_code: String
+  payroll_periods: Float
+}
+
+input ConfigWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ConfigWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  country_code: String
+
+  """All values that are not equal to given value."""
+  country_code_not: String
+
+  """All values that are contained in given list."""
+  country_code_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_code_not_in: [String!]
+
+  """All values less than the given value."""
+  country_code_lt: String
+
+  """All values less than or equal the given value."""
+  country_code_lte: String
+
+  """All values greater than the given value."""
+  country_code_gt: String
+
+  """All values greater than or equal the given value."""
+  country_code_gte: String
+
+  """All values containing the given string."""
+  country_code_contains: String
+
+  """All values not containing the given string."""
+  country_code_not_contains: String
+
+  """All values starting with the given string."""
+  country_code_starts_with: String
+
+  """All values not starting with the given string."""
+  country_code_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_code_ends_with: String
+
+  """All values not ending with the given string."""
+  country_code_not_ends_with: String
+  payroll_periods: Float
+
+  """All values that are not equal to given value."""
+  payroll_periods_not: Float
+
+  """All values that are contained in given list."""
+  payroll_periods_in: [Float!]
+
+  """All values that are not contained in given list."""
+  payroll_periods_not_in: [Float!]
+
+  """All values less than the given value."""
+  payroll_periods_lt: Float
+
+  """All values less than or equal the given value."""
+  payroll_periods_lte: Float
+
+  """All values greater than the given value."""
+  payroll_periods_gt: Float
+
+  """All values greater than or equal the given value."""
+  payroll_periods_gte: Float
+  tax: TaxWhereInput
+}
+
+input ConfigWhereUniqueInput {
   id: ID
 }
 
@@ -1222,36 +1430,42 @@ type Mutation {
   createCompany(data: CompanyCreateInput!): Company!
   createPayrollConfig(data: PayrollConfigCreateInput!): PayrollConfig!
   createPayrollRegistry(data: PayrollRegistryCreateInput!): PayrollRegistry!
+  createConfig(data: ConfigCreateInput!): Config!
   createEmployee(data: EmployeeCreateInput!): Employee!
   createUser(data: UserCreateInput!): User!
   createPayrollType(data: PayrollTypeCreateInput!): PayrollType!
   updateCompany(data: CompanyUpdateInput!, where: CompanyWhereUniqueInput!): Company
   updatePayrollConfig(data: PayrollConfigUpdateInput!, where: PayrollConfigWhereUniqueInput!): PayrollConfig
   updatePayrollRegistry(data: PayrollRegistryUpdateInput!, where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
+  updateConfig(data: ConfigUpdateInput!, where: ConfigWhereUniqueInput!): Config
   updateEmployee(data: EmployeeUpdateInput!, where: EmployeeWhereUniqueInput!): Employee
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updatePayrollType(data: PayrollTypeUpdateInput!, where: PayrollTypeWhereUniqueInput!): PayrollType
   deleteCompany(where: CompanyWhereUniqueInput!): Company
   deletePayrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
   deletePayrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
+  deleteConfig(where: ConfigWhereUniqueInput!): Config
   deleteEmployee(where: EmployeeWhereUniqueInput!): Employee
   deleteUser(where: UserWhereUniqueInput!): User
   deletePayrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
   upsertCompany(where: CompanyWhereUniqueInput!, create: CompanyCreateInput!, update: CompanyUpdateInput!): Company!
   upsertPayrollConfig(where: PayrollConfigWhereUniqueInput!, create: PayrollConfigCreateInput!, update: PayrollConfigUpdateInput!): PayrollConfig!
   upsertPayrollRegistry(where: PayrollRegistryWhereUniqueInput!, create: PayrollRegistryCreateInput!, update: PayrollRegistryUpdateInput!): PayrollRegistry!
+  upsertConfig(where: ConfigWhereUniqueInput!, create: ConfigCreateInput!, update: ConfigUpdateInput!): Config!
   upsertEmployee(where: EmployeeWhereUniqueInput!, create: EmployeeCreateInput!, update: EmployeeUpdateInput!): Employee!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertPayrollType(where: PayrollTypeWhereUniqueInput!, create: PayrollTypeCreateInput!, update: PayrollTypeUpdateInput!): PayrollType!
   updateManyCompanies(data: CompanyUpdateManyMutationInput!, where: CompanyWhereInput): BatchPayload!
   updateManyPayrollConfigs(data: PayrollConfigUpdateManyMutationInput!, where: PayrollConfigWhereInput): BatchPayload!
   updateManyPayrollRegistries(data: PayrollRegistryUpdateManyMutationInput!, where: PayrollRegistryWhereInput): BatchPayload!
+  updateManyConfigs(data: ConfigUpdateManyMutationInput!, where: ConfigWhereInput): BatchPayload!
   updateManyEmployees(data: EmployeeUpdateManyMutationInput!, where: EmployeeWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyPayrollTypes(data: PayrollTypeUpdateManyMutationInput!, where: PayrollTypeWhereInput): BatchPayload!
   deleteManyCompanies(where: CompanyWhereInput): BatchPayload!
   deleteManyPayrollConfigs(where: PayrollConfigWhereInput): BatchPayload!
   deleteManyPayrollRegistries(where: PayrollRegistryWhereInput): BatchPayload!
+  deleteManyConfigs(where: ConfigWhereInput): BatchPayload!
   deleteManyEmployees(where: EmployeeWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyPayrollTypes(where: PayrollTypeWhereInput): BatchPayload!
@@ -2854,18 +3068,21 @@ type Query {
   companies(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Company]!
   payrollConfigs(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollConfig]!
   payrollRegistries(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollRegistry]!
+  configs(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Config]!
   employees(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employee]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   payrollTypes(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType]!
   company(where: CompanyWhereUniqueInput!): Company
   payrollConfig(where: PayrollConfigWhereUniqueInput!): PayrollConfig
   payrollRegistry(where: PayrollRegistryWhereUniqueInput!): PayrollRegistry
+  config(where: ConfigWhereUniqueInput!): Config
   employee(where: EmployeeWhereUniqueInput!): Employee
   user(where: UserWhereUniqueInput!): User
   payrollType(where: PayrollTypeWhereUniqueInput!): PayrollType
   companiesConnection(where: CompanyWhereInput, orderBy: CompanyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CompanyConnection!
   payrollConfigsConnection(where: PayrollConfigWhereInput, orderBy: PayrollConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollConfigConnection!
   payrollRegistriesConnection(where: PayrollRegistryWhereInput, orderBy: PayrollRegistryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollRegistryConnection!
+  configsConnection(where: ConfigWhereInput, orderBy: ConfigOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConfigConnection!
   employeesConnection(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmployeeConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   payrollTypesConnection(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PayrollTypeConnection!
@@ -3270,9 +3487,327 @@ type Subscription {
   company(where: CompanySubscriptionWhereInput): CompanySubscriptionPayload
   payrollConfig(where: PayrollConfigSubscriptionWhereInput): PayrollConfigSubscriptionPayload
   payrollRegistry(where: PayrollRegistrySubscriptionWhereInput): PayrollRegistrySubscriptionPayload
+  config(where: ConfigSubscriptionWhereInput): ConfigSubscriptionPayload
   employee(where: EmployeeSubscriptionWhereInput): EmployeeSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   payrollType(where: PayrollTypeSubscriptionWhereInput): PayrollTypeSubscriptionPayload
+}
+
+type TableTax {
+  level_1: TaxLevel
+  level_2: TaxLevel
+  level_3: TaxLevel
+}
+
+input TableTaxCreateInput {
+  level_1: TaxLevelCreateOneInput
+  level_2: TaxLevelCreateOneInput
+  level_3: TaxLevelCreateOneInput
+}
+
+input TableTaxCreateOneInput {
+  create: TableTaxCreateInput
+}
+
+input TableTaxUpdateDataInput {
+  level_1: TaxLevelUpdateOneInput
+  level_2: TaxLevelUpdateOneInput
+  level_3: TaxLevelUpdateOneInput
+}
+
+input TableTaxUpdateOneInput {
+  create: TableTaxCreateInput
+  delete: Boolean
+  update: TableTaxUpdateDataInput
+  upsert: TableTaxUpsertNestedInput
+}
+
+input TableTaxUpsertNestedInput {
+  update: TableTaxUpdateDataInput!
+  create: TableTaxCreateInput!
+}
+
+input TableTaxWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TableTaxWhereInput!]
+  level_1: TaxLevelWhereInput
+  level_2: TaxLevelWhereInput
+  level_3: TaxLevelWhereInput
+}
+
+type Tax {
+  name: String
+  abbr: String
+  base_deductable: Float
+  table: TableTax
+}
+
+input TaxCreateInput {
+  name: String
+  abbr: String
+  base_deductable: Float
+  table: TableTaxCreateOneInput
+}
+
+input TaxCreateOneInput {
+  create: TaxCreateInput
+}
+
+type TaxLevel {
+  from: Float
+  to: Float
+  operator: Float
+  discount: Float
+}
+
+input TaxLevelCreateInput {
+  from: Float
+  to: Float
+  operator: Float
+  discount: Float
+}
+
+input TaxLevelCreateOneInput {
+  create: TaxLevelCreateInput
+}
+
+input TaxLevelUpdateDataInput {
+  from: Float
+  to: Float
+  operator: Float
+  discount: Float
+}
+
+input TaxLevelUpdateOneInput {
+  create: TaxLevelCreateInput
+  delete: Boolean
+  update: TaxLevelUpdateDataInput
+  upsert: TaxLevelUpsertNestedInput
+}
+
+input TaxLevelUpsertNestedInput {
+  update: TaxLevelUpdateDataInput!
+  create: TaxLevelCreateInput!
+}
+
+input TaxLevelWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TaxLevelWhereInput!]
+  from: Float
+
+  """All values that are not equal to given value."""
+  from_not: Float
+
+  """All values that are contained in given list."""
+  from_in: [Float!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [Float!]
+
+  """All values less than the given value."""
+  from_lt: Float
+
+  """All values less than or equal the given value."""
+  from_lte: Float
+
+  """All values greater than the given value."""
+  from_gt: Float
+
+  """All values greater than or equal the given value."""
+  from_gte: Float
+  to: Float
+
+  """All values that are not equal to given value."""
+  to_not: Float
+
+  """All values that are contained in given list."""
+  to_in: [Float!]
+
+  """All values that are not contained in given list."""
+  to_not_in: [Float!]
+
+  """All values less than the given value."""
+  to_lt: Float
+
+  """All values less than or equal the given value."""
+  to_lte: Float
+
+  """All values greater than the given value."""
+  to_gt: Float
+
+  """All values greater than or equal the given value."""
+  to_gte: Float
+  operator: Float
+
+  """All values that are not equal to given value."""
+  operator_not: Float
+
+  """All values that are contained in given list."""
+  operator_in: [Float!]
+
+  """All values that are not contained in given list."""
+  operator_not_in: [Float!]
+
+  """All values less than the given value."""
+  operator_lt: Float
+
+  """All values less than or equal the given value."""
+  operator_lte: Float
+
+  """All values greater than the given value."""
+  operator_gt: Float
+
+  """All values greater than or equal the given value."""
+  operator_gte: Float
+  discount: Float
+
+  """All values that are not equal to given value."""
+  discount_not: Float
+
+  """All values that are contained in given list."""
+  discount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  discount_not_in: [Float!]
+
+  """All values less than the given value."""
+  discount_lt: Float
+
+  """All values less than or equal the given value."""
+  discount_lte: Float
+
+  """All values greater than the given value."""
+  discount_gt: Float
+
+  """All values greater than or equal the given value."""
+  discount_gte: Float
+}
+
+input TaxUpdateDataInput {
+  name: String
+  abbr: String
+  base_deductable: Float
+  table: TableTaxUpdateOneInput
+}
+
+input TaxUpdateOneInput {
+  create: TaxCreateInput
+  delete: Boolean
+  update: TaxUpdateDataInput
+  upsert: TaxUpsertNestedInput
+}
+
+input TaxUpsertNestedInput {
+  update: TaxUpdateDataInput!
+  create: TaxCreateInput!
+}
+
+input TaxWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TaxWhereInput!]
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  abbr: String
+
+  """All values that are not equal to given value."""
+  abbr_not: String
+
+  """All values that are contained in given list."""
+  abbr_in: [String!]
+
+  """All values that are not contained in given list."""
+  abbr_not_in: [String!]
+
+  """All values less than the given value."""
+  abbr_lt: String
+
+  """All values less than or equal the given value."""
+  abbr_lte: String
+
+  """All values greater than the given value."""
+  abbr_gt: String
+
+  """All values greater than or equal the given value."""
+  abbr_gte: String
+
+  """All values containing the given string."""
+  abbr_contains: String
+
+  """All values not containing the given string."""
+  abbr_not_contains: String
+
+  """All values starting with the given string."""
+  abbr_starts_with: String
+
+  """All values not starting with the given string."""
+  abbr_not_starts_with: String
+
+  """All values ending with the given string."""
+  abbr_ends_with: String
+
+  """All values not ending with the given string."""
+  abbr_not_ends_with: String
+  base_deductable: Float
+
+  """All values that are not equal to given value."""
+  base_deductable_not: Float
+
+  """All values that are contained in given list."""
+  base_deductable_in: [Float!]
+
+  """All values that are not contained in given list."""
+  base_deductable_not_in: [Float!]
+
+  """All values less than the given value."""
+  base_deductable_lt: Float
+
+  """All values less than or equal the given value."""
+  base_deductable_lte: Float
+
+  """All values greater than the given value."""
+  base_deductable_gt: Float
+
+  """All values greater than or equal the given value."""
+  base_deductable_gte: Float
+  table: TableTaxWhereInput
 }
 
 type User implements Node {

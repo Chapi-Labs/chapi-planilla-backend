@@ -43,6 +43,7 @@ type Mutation {
   ): Employee
   createPayrollConfig(name: String!, frequency: String): PayrollConfig
   updateCompany(id: ID!, name: String!): Company
+  createConfig(data: ConfigCreateInput): Config
 }
 
 type Query {

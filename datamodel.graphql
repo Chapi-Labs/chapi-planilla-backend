@@ -117,3 +117,29 @@ type PayrollRegistry @db(name: "payroll_registry") {
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
+
+type TaxLevel @embedded {
+  from: Float
+  to: Float
+  operator: Float
+  discount: Float
+}
+
+type TableTax @embedded {
+  level_1: TaxLevel @relation(name: "Level")
+  level_2: TaxLevel @relation(name: "Level2")
+  level_3: TaxLevel @relation(name: "Level3")
+}
+
+type Tax @embedded {
+  name: String
+  abbr: String
+  base_deductable: Float
+  table: TableTax
+}
+type Config @db(name: "config") {
+  id: ID! @id
+  tax: Tax
+  country_code: String
+  payroll_periods: Float
+}

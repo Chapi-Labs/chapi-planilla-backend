@@ -2,11 +2,15 @@ const { GraphQLServer } = require('graphql-yoga');
 const Mutation = require('./resolvers/Mutation');
 const Query = require('./resolvers/Query');
 const db = require('./db');
+const { ApolloEngine } = require('apollo-engine');
 
 // Create the GraphQL Yoga Server
 
 function createServer() {
-    return new GraphQLServer({
+    const engine = new ApolloEngine({
+      apiKey: process.env.APOLLO_ENGINE_KEY
+    });
+    const server =  new GraphQLServer({
         typeDefs: 'src/schema.graphql',
         resolvers: {
             Mutation,
@@ -17,6 +21,7 @@ function createServer() {
         },
         context: req => ({ ...req, db }),
     });
+    return { engine, server };
 }
 
 module.exports = createServer;

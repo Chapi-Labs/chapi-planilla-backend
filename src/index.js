@@ -4,10 +4,10 @@ require('dotenv').config({ path: '.env' });
 const createServer = require('./createServer');
 const db = require('./db');
 
-const server = createServer();
+const { engine, server } = createServer();
+const port = parseInt(process.env.PORT, 10) || 4000;
 
 server.express.use(cookieParser());
-
 // decode the JWT so we can get the user Id on each request
 server.express.use((req, res, next) => {
   const { token } = req.cookies;
@@ -32,14 +32,22 @@ server.express.use(async (req, res, next) => {
   next();
 });
 
-server.start(
+ const httpServer = server.createHttpServer({
+   tracing: true,
+   cacheControl: true,
+   cors: {
+     origin: process.env.FRONTEND_URL,
+     credentials: true
+   }
+ });
+engine.listen(
   {
-    cors: {
-      origin: process.env.FRONTEND_URL,
-      credentials: true
-    }
+    port,
+    httpServer,
+    graphqlPaths: ['/']
   },
-  deets => {
-    console.log(`Server is now running on port http://localhost:${deets.port}`);
-  }
+  () =>
+    console.log(
+      `Server with Apollo Engine is running on http://localhost:${port}`
+    )
 );
