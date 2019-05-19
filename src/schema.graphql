@@ -31,6 +31,7 @@ type Mutation {
     company: String
     payroll_frequency: String
     base_salary: Float
+    spouse: Boolean
   ): Employee!
   createCompany(name: String!): Company!
   updateEmployee(

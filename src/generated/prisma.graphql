@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Mon May 13 2019 23:30:30 GMT-0600 (Central Standard Time)
+# timestamp: Sun May 19 2019 12:30:44 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -619,6 +619,7 @@ type Employee implements Node {
   salaries: [Salary!]
   company: CompanyEmbedded
   payroll_frequency: PayrollConfigEmbedded
+  spouse: Boolean
   createdBy: User!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -643,6 +644,7 @@ input EmployeeCreateInput {
   active: Boolean
   email: String
   base_salary: Float
+  spouse: Boolean
   salaries: SalaryCreateManyInput
   company: CompanyEmbeddedCreateOneInput
   payroll_frequency: PayrollConfigEmbeddedCreateOneInput
@@ -680,6 +682,8 @@ enum EmployeeOrderByInput {
   email_DESC
   base_salary_ASC
   base_salary_DESC
+  spouse_ASC
+  spouse_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -695,6 +699,7 @@ type EmployeePreviousValues {
   active: Boolean!
   email: String
   base_salary: Float
+  spouse: Boolean
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -956,6 +961,10 @@ input EmployeeScalarWhereInput {
 
   """All values greater than or equal the given value."""
   base_salary_gte: Float
+  spouse: Boolean
+
+  """All values that are not equal to given value."""
+  spouse_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -1043,6 +1052,7 @@ input EmployeeUpdateDataInput {
   active: Boolean
   email: String
   base_salary: Float
+  spouse: Boolean
   salaries: SalaryUpdateManyInput
   company: CompanyEmbeddedUpdateOneInput
   payroll_frequency: PayrollConfigEmbeddedUpdateOneInput
@@ -1057,6 +1067,7 @@ input EmployeeUpdateInput {
   active: Boolean
   email: String
   base_salary: Float
+  spouse: Boolean
   salaries: SalaryUpdateManyInput
   company: CompanyEmbeddedUpdateOneInput
   payroll_frequency: PayrollConfigEmbeddedUpdateOneInput
@@ -1071,6 +1082,7 @@ input EmployeeUpdateManyDataInput {
   active: Boolean
   email: String
   base_salary: Float
+  spouse: Boolean
 }
 
 input EmployeeUpdateManyInput {
@@ -1093,6 +1105,7 @@ input EmployeeUpdateManyMutationInput {
   active: Boolean
   email: String
   base_salary: Float
+  spouse: Boolean
 }
 
 input EmployeeUpdateManyWithWhereNestedInput {
@@ -1362,6 +1375,10 @@ input EmployeeWhereInput {
 
   """All values greater than or equal the given value."""
   base_salary_gte: Float
+  spouse: Boolean
+
+  """All values that are not equal to given value."""
+  spouse_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""

@@ -37,6 +37,7 @@ type Employee @db(name: "employees") {
   salaries: [Salary!]
   company: CompanyEmbedded
   payroll_frequency: PayrollConfigEmbedded
+  spouse: Boolean @default(value: false)
   createdBy: User! @relation(link: INLINE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
