@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Mon May 27 2019 00:03:08 GMT-0600 (Central Standard Time)
+# timestamp: Mon May 27 2019 00:42:02 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -2144,6 +2144,7 @@ type PayrollType implements Node {
   operator: String!
   category: String
   value: Float!
+  order: Float
 }
 
 """A connection to a list of items."""
@@ -2163,6 +2164,7 @@ input PayrollTypeCreateInput {
   operator: String!
   category: String
   value: Float!
+  order: Float
 }
 
 input PayrollTypeCreateManyInput {
@@ -2586,6 +2588,8 @@ enum PayrollTypeOrderByInput {
   category_DESC
   value_ASC
   value_DESC
+  order_ASC
+  order_DESC
 }
 
 type PayrollTypePreviousValues {
@@ -2595,6 +2599,7 @@ type PayrollTypePreviousValues {
   operator: String!
   category: String
   value: Float!
+  order: Float
 }
 
 input PayrollTypeScalarWhereInput {
@@ -2828,6 +2833,28 @@ input PayrollTypeScalarWhereInput {
 
   """All values greater than or equal the given value."""
   value_gte: Float
+  order: Float
+
+  """All values that are not equal to given value."""
+  order_not: Float
+
+  """All values that are contained in given list."""
+  order_in: [Float!]
+
+  """All values that are not contained in given list."""
+  order_not_in: [Float!]
+
+  """All values less than the given value."""
+  order_lt: Float
+
+  """All values less than or equal the given value."""
+  order_lte: Float
+
+  """All values greater than the given value."""
+  order_gt: Float
+
+  """All values greater than or equal the given value."""
+  order_gte: Float
 }
 
 type PayrollTypeSubscriptionPayload {
@@ -2869,6 +2896,7 @@ input PayrollTypeUpdateDataInput {
   operator: String
   category: String
   value: Float
+  order: Float
 }
 
 input PayrollTypeUpdateInput {
@@ -2877,6 +2905,7 @@ input PayrollTypeUpdateInput {
   operator: String
   category: String
   value: Float
+  order: Float
 }
 
 input PayrollTypeUpdateManyDataInput {
@@ -2885,6 +2914,7 @@ input PayrollTypeUpdateManyDataInput {
   operator: String
   category: String
   value: Float
+  order: Float
 }
 
 input PayrollTypeUpdateManyInput {
@@ -2905,6 +2935,7 @@ input PayrollTypeUpdateManyMutationInput {
   operator: String
   category: String
   value: Float
+  order: Float
 }
 
 input PayrollTypeUpdateManyWithWhereNestedInput {
@@ -3148,6 +3179,28 @@ input PayrollTypeWhereInput {
 
   """All values greater than or equal the given value."""
   value_gte: Float
+  order: Float
+
+  """All values that are not equal to given value."""
+  order_not: Float
+
+  """All values that are contained in given list."""
+  order_in: [Float!]
+
+  """All values that are not contained in given list."""
+  order_not_in: [Float!]
+
+  """All values less than the given value."""
+  order_lt: Float
+
+  """All values less than or equal the given value."""
+  order_lte: Float
+
+  """All values greater than the given value."""
+  order_gt: Float
+
+  """All values greater than or equal the given value."""
+  order_gte: Float
 }
 
 input PayrollTypeWhereUniqueInput {

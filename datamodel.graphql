@@ -78,6 +78,7 @@ type PayrollType @db(name: "payroll_type"){
   operator: String!
   category: String
   value: Float!
+  order: Float
 }
 
 type PayrollTypeEmbedded @embedded {
