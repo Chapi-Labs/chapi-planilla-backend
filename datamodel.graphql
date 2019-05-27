@@ -47,7 +47,7 @@ type Company @db(name: "companies") {
   id: ID! @id
   active: Boolean! @default(value: true)
   name: String!
-  createdBy: User! @relation(link: INLINE)
+  createdBy: User @relation(link: INLINE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -55,6 +55,8 @@ type Company @db(name: "companies") {
 type Salary @embedded {
   title: String
   base_value: Float!
+  from_period: DateTime
+  to_period: DateTime
   detail: [PayrollTypeEmbedded]
   total: Float
   createdAt: DateTime! @createdAt
@@ -74,6 +76,7 @@ type PayrollType @db(name: "payroll_type"){
   name: String!
   type: String!
   operator: String!
+  category: String
   value: Float!
 }
 
@@ -95,6 +98,7 @@ type PayrollConfig @db(name: "payroll_config") {
   types: [PayrollType!] @relation(link: INLINE)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
+  createdBy: User  @relation(link: INLINE)
 }
 
 # Payroll template that groups
@@ -111,7 +115,6 @@ type PayrollConfigEmbedded @embedded {
 type PayrollRegistry @db(name: "payroll_registry") {
   id: ID! @id
   name: String!
-  active: Boolean! @default(value: true)
   company: CompanyEmbedded! 
   config: PayrollConfigEmbedded!
   employees: [Employee!] @relation(link: INLINE)

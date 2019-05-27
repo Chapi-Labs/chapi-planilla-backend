@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Sun May 19 2019 12:30:44 GMT-0600 (Central Standard Time)
+# timestamp: Mon May 27 2019 00:03:08 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -38,7 +38,7 @@ type Company implements Node {
   id: ID!
   active: Boolean!
   name: String!
-  createdBy: User!
+  createdBy: User
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -57,7 +57,7 @@ input CompanyCreateInput {
   id: ID
   active: Boolean
   name: String!
-  createdBy: UserCreateOneInput!
+  createdBy: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -255,7 +255,7 @@ input CompanySubscriptionWhereInput {
 input CompanyUpdateInput {
   active: Boolean
   name: String
-  createdBy: UserUpdateOneRequiredInput
+  createdBy: UserUpdateOneInput
 }
 
 input CompanyUpdateManyMutationInput {
@@ -1522,6 +1522,7 @@ type PayrollConfig implements Node {
   types(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType!]
   updatedAt: DateTime!
   createdAt: DateTime!
+  createdBy: User
 }
 
 """A connection to a list of items."""
@@ -1539,6 +1540,7 @@ input PayrollConfigCreateInput {
   name: String!
   frequency: SalaryFrequency!
   types: PayrollTypeCreateManyInput
+  createdBy: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -1747,6 +1749,7 @@ input PayrollConfigUpdateInput {
   name: String
   frequency: SalaryFrequency
   types: PayrollTypeUpdateManyInput
+  createdBy: UserUpdateOneInput
 }
 
 input PayrollConfigUpdateManyMutationInput {
@@ -1892,6 +1895,7 @@ input PayrollConfigWhereInput {
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
   types_some: PayrollTypeWhereInput
+  createdBy: UserWhereInput
 }
 
 input PayrollConfigWhereUniqueInput {
@@ -1901,7 +1905,6 @@ input PayrollConfigWhereUniqueInput {
 type PayrollRegistry implements Node {
   id: ID!
   name: String!
-  active: Boolean!
   company: CompanyEmbedded!
   config: PayrollConfigEmbedded!
   employees(where: EmployeeWhereInput, orderBy: EmployeeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Employee!]
@@ -1922,7 +1925,6 @@ type PayrollRegistryConnection {
 input PayrollRegistryCreateInput {
   id: ID
   name: String!
-  active: Boolean
   company: CompanyEmbeddedCreateOneInput!
   config: PayrollConfigEmbeddedCreateOneInput!
   employees: EmployeeCreateManyInput
@@ -1942,8 +1944,6 @@ enum PayrollRegistryOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  active_ASC
-  active_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1953,7 +1953,6 @@ enum PayrollRegistryOrderByInput {
 type PayrollRegistryPreviousValues {
   id: ID!
   name: String!
-  active: Boolean!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1993,7 +1992,6 @@ input PayrollRegistrySubscriptionWhereInput {
 
 input PayrollRegistryUpdateInput {
   name: String
-  active: Boolean
   company: CompanyEmbeddedUpdateOneRequiredInput
   config: PayrollConfigEmbeddedUpdateOneRequiredInput
   employees: EmployeeUpdateManyInput
@@ -2001,7 +1999,6 @@ input PayrollRegistryUpdateInput {
 
 input PayrollRegistryUpdateManyMutationInput {
   name: String
-  active: Boolean
 }
 
 input PayrollRegistryWhereInput {
@@ -2087,10 +2084,6 @@ input PayrollRegistryWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  active: Boolean
-
-  """All values that are not equal to given value."""
-  active_not: Boolean
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -2149,6 +2142,7 @@ type PayrollType implements Node {
   name: String!
   type: String!
   operator: String!
+  category: String
   value: Float!
 }
 
@@ -2167,6 +2161,7 @@ input PayrollTypeCreateInput {
   name: String!
   type: String!
   operator: String!
+  category: String
   value: Float!
 }
 
@@ -2587,6 +2582,8 @@ enum PayrollTypeOrderByInput {
   type_DESC
   operator_ASC
   operator_DESC
+  category_ASC
+  category_DESC
   value_ASC
   value_DESC
 }
@@ -2596,6 +2593,7 @@ type PayrollTypePreviousValues {
   name: String!
   type: String!
   operator: String!
+  category: String
   value: Float!
 }
 
@@ -2768,6 +2766,46 @@ input PayrollTypeScalarWhereInput {
 
   """All values not ending with the given string."""
   operator_not_ends_with: String
+  category: String
+
+  """All values that are not equal to given value."""
+  category_not: String
+
+  """All values that are contained in given list."""
+  category_in: [String!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [String!]
+
+  """All values less than the given value."""
+  category_lt: String
+
+  """All values less than or equal the given value."""
+  category_lte: String
+
+  """All values greater than the given value."""
+  category_gt: String
+
+  """All values greater than or equal the given value."""
+  category_gte: String
+
+  """All values containing the given string."""
+  category_contains: String
+
+  """All values not containing the given string."""
+  category_not_contains: String
+
+  """All values starting with the given string."""
+  category_starts_with: String
+
+  """All values not starting with the given string."""
+  category_not_starts_with: String
+
+  """All values ending with the given string."""
+  category_ends_with: String
+
+  """All values not ending with the given string."""
+  category_not_ends_with: String
   value: Float
 
   """All values that are not equal to given value."""
@@ -2829,6 +2867,7 @@ input PayrollTypeUpdateDataInput {
   name: String
   type: String
   operator: String
+  category: String
   value: Float
 }
 
@@ -2836,6 +2875,7 @@ input PayrollTypeUpdateInput {
   name: String
   type: String
   operator: String
+  category: String
   value: Float
 }
 
@@ -2843,6 +2883,7 @@ input PayrollTypeUpdateManyDataInput {
   name: String
   type: String
   operator: String
+  category: String
   value: Float
 }
 
@@ -2862,6 +2903,7 @@ input PayrollTypeUpdateManyMutationInput {
   name: String
   type: String
   operator: String
+  category: String
   value: Float
 }
 
@@ -3044,6 +3086,46 @@ input PayrollTypeWhereInput {
 
   """All values not ending with the given string."""
   operator_not_ends_with: String
+  category: String
+
+  """All values that are not equal to given value."""
+  category_not: String
+
+  """All values that are contained in given list."""
+  category_in: [String!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [String!]
+
+  """All values less than the given value."""
+  category_lt: String
+
+  """All values less than or equal the given value."""
+  category_lte: String
+
+  """All values greater than the given value."""
+  category_gt: String
+
+  """All values greater than or equal the given value."""
+  category_gte: String
+
+  """All values containing the given string."""
+  category_contains: String
+
+  """All values not containing the given string."""
+  category_not_contains: String
+
+  """All values starting with the given string."""
+  category_starts_with: String
+
+  """All values not starting with the given string."""
+  category_not_starts_with: String
+
+  """All values ending with the given string."""
+  category_ends_with: String
+
+  """All values not ending with the given string."""
+  category_not_ends_with: String
   value: Float
 
   """All values that are not equal to given value."""
@@ -3114,6 +3196,8 @@ type Query {
 type Salary {
   title: String
   base_value: Float!
+  from_period: DateTime
+  to_period: DateTime
   detail: [PayrollTypeEmbedded!]
   total: Float
   createdAt: DateTime!
@@ -3122,6 +3206,8 @@ type Salary {
 input SalaryCreateInput {
   title: String
   base_value: Float!
+  from_period: DateTime
+  to_period: DateTime
   total: Float
   detail: PayrollTypeEmbeddedCreateManyInput
 }
@@ -3203,6 +3289,50 @@ input SalaryRestrictedWhereInput {
 
   """All values greater than or equal the given value."""
   base_value_gte: Float
+  from_period: DateTime
+
+  """All values that are not equal to given value."""
+  from_period_not: DateTime
+
+  """All values that are contained in given list."""
+  from_period_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  from_period_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  from_period_lt: DateTime
+
+  """All values less than or equal the given value."""
+  from_period_lte: DateTime
+
+  """All values greater than the given value."""
+  from_period_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  from_period_gte: DateTime
+  to_period: DateTime
+
+  """All values that are not equal to given value."""
+  to_period_not: DateTime
+
+  """All values that are contained in given list."""
+  to_period_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  to_period_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  to_period_lt: DateTime
+
+  """All values less than or equal the given value."""
+  to_period_lte: DateTime
+
+  """All values greater than the given value."""
+  to_period_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  to_period_gte: DateTime
   total: Float
 
   """All values that are not equal to given value."""
@@ -3323,6 +3453,50 @@ input SalaryScalarWhereInput {
 
   """All values greater than or equal the given value."""
   base_value_gte: Float
+  from_period: DateTime
+
+  """All values that are not equal to given value."""
+  from_period_not: DateTime
+
+  """All values that are contained in given list."""
+  from_period_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  from_period_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  from_period_lt: DateTime
+
+  """All values less than or equal the given value."""
+  from_period_lte: DateTime
+
+  """All values greater than the given value."""
+  from_period_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  from_period_gte: DateTime
+  to_period: DateTime
+
+  """All values that are not equal to given value."""
+  to_period_not: DateTime
+
+  """All values that are contained in given list."""
+  to_period_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  to_period_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  to_period_lt: DateTime
+
+  """All values less than or equal the given value."""
+  to_period_lte: DateTime
+
+  """All values greater than the given value."""
+  to_period_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  to_period_gte: DateTime
   total: Float
 
   """All values that are not equal to given value."""
@@ -3372,6 +3546,8 @@ input SalaryScalarWhereInput {
 input SalaryUpdateManyDataInput {
   title: String
   base_value: Float
+  from_period: DateTime
+  to_period: DateTime
   total: Float
 }
 
@@ -3451,6 +3627,50 @@ input SalaryWhereInput {
 
   """All values greater than or equal the given value."""
   base_value_gte: Float
+  from_period: DateTime
+
+  """All values that are not equal to given value."""
+  from_period_not: DateTime
+
+  """All values that are contained in given list."""
+  from_period_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  from_period_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  from_period_lt: DateTime
+
+  """All values less than or equal the given value."""
+  from_period_lte: DateTime
+
+  """All values greater than the given value."""
+  from_period_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  from_period_gte: DateTime
+  to_period: DateTime
+
+  """All values that are not equal to given value."""
+  to_period_not: DateTime
+
+  """All values that are contained in given list."""
+  to_period_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  to_period_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  to_period_lt: DateTime
+
+  """All values less than or equal the given value."""
+  to_period_lte: DateTime
+
+  """All values greater than the given value."""
+  to_period_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  to_period_gte: DateTime
   total: Float
 
   """All values that are not equal to given value."""
@@ -3958,6 +4178,15 @@ input UserUpdateManyMutationInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateOneRequiredInput {

@@ -1,15 +1,16 @@
-const ConfigMutation = require('./mutations/ConfigMutation');
 const CompanyMutation = require('./mutations/CompanyMutations');
+const ConfigMutation = require('./mutations/ConfigMutation');
 const EmployeeMutation = require('./mutations/EmployeeMutations');
 const PayrollMutation = require('./mutations/PayrollConfigMutation');
+const PayrollTypeMutation = require('./mutations/PayrollTypeMutations');
 const UserMutation = require('./mutations/UserMutations');
 
-
 const Mutation = {
-  ...ConfigMutation,
   ...CompanyMutation,
+  ...ConfigMutation,
   ...EmployeeMutation,
   ...PayrollMutation,
+  ...PayrollTypeMutation,
   ...UserMutation,
   
 };
