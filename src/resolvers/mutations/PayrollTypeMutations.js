@@ -10,7 +10,6 @@ const PayrollTypeMutations = {
       {
         data: {
           ...args,
-          active: true,
         }
       },
       info
