@@ -68,12 +68,12 @@ const Query = {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
-    const data = await ctx.db.query.payrollConfigs(args, `{id name frequency }`);
+    const data = await ctx.db.query.payrollConfigs(args, `{id name payroll_frequency }`);
     const render = data.map(c => ({
       id: c.id,
       value: c.id,
       label: c.name,
-      frequency: c.frequency
+      payroll_frequency: c.payroll_frequency
     }));
     return render;
   },

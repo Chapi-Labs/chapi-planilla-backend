@@ -9,7 +9,7 @@ type SelectRender {
   value: String
   label: String
   name: String
-  frequency: String
+  payroll_frequency: String
 }
 
 input SelectRenderInput {
@@ -63,7 +63,7 @@ type Mutation {
     value: Float
   ): PayrollType
   updatePayrollType(id: ID!, name: String!): PayrollType
-  createPayrollRegistry(name: String, company: String, config: [SelectRenderInput]): PayrollRegistry
+  createPayrollRegistry(name: String, company: String, frequency: String, date_start: String, date_end: String): PayrollRegistry
 }
 
 type Query {

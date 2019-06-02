@@ -95,7 +95,7 @@ type PayrollTypeEmbedded @embedded {
 type PayrollConfig @db(name: "payroll_config") {
   id: ID! @id
   name: String!
-  frequency: SalaryFrequency!
+  payroll_frequency: SalaryFrequency
   types: [PayrollType!] @relation(link: INLINE)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
@@ -105,9 +105,8 @@ type PayrollConfig @db(name: "payroll_config") {
 # Payroll template that groups
 # payroll types
 type PayrollConfigEmbedded @embedded {
-  _id: ID
   name: String!
-  frequency: SalaryFrequency!
+  payroll_frequency: SalaryFrequency
   types: [PayrollType!] @relation(link: INLINE)
 }
 
@@ -117,7 +116,9 @@ type PayrollRegistry @db(name: "payroll_registry") {
   id: ID! @id
   name: String!
   company: CompanyEmbedded!
-  config: [PayrollConfigEmbedded]!
+  config: PayrollConfigEmbedded
+  date_start: DateTime!
+  date_end: DateTime!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
