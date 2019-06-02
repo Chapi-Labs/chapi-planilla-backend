@@ -116,9 +116,8 @@ type PayrollConfigEmbedded @embedded {
 type PayrollRegistry @db(name: "payroll_registry") {
   id: ID! @id
   name: String!
-  company: CompanyEmbedded! 
-  config: PayrollConfigEmbedded!
-  employees: [Employee!] @relation(link: INLINE)
+  company: CompanyEmbedded!
+  config: [PayrollConfigEmbedded]!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
