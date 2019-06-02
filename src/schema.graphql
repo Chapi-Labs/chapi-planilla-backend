@@ -9,6 +9,15 @@ type SelectRender {
   value: String
   label: String
   name: String
+  frequency: String
+}
+
+input SelectRenderInput {
+  id: String!
+  value: String
+  label: String
+  name: String
+  frequency: String
 }
 
 type Mutation {
@@ -54,6 +63,7 @@ type Mutation {
     value: Float
   ): PayrollType
   updatePayrollType(id: ID!, name: String!): PayrollType
+  createPayrollRegistry(name: String, company: String, config: [SelectRenderInput]): PayrollRegistry
 }
 
 type Query {
@@ -64,4 +74,5 @@ type Query {
   companies(where: CompanyWhereInput): [SelectRender]!
   employeesSelect(where: EmployeeWhereInput): [SelectRender]!
   payrollConfigSelect(where: PayrollConfigWhereInput): [SelectRender]!
+  payrollTypeSelect: [SelectRender]!
 }

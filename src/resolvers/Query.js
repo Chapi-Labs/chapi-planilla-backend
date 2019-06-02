@@ -9,7 +9,7 @@ const Query = {
     }
     return ctx.db.query.user(
       {
-        where: { id: ctx.request.userId },
+        where: { id: ctx.request.userId }
       },
       info
     );
@@ -28,12 +28,16 @@ const Query = {
   },
   employees: forwardTo('db'),
   async companies(parent, args, ctx, info) {
-     // 1. Check if they are logged in
+    // 1. Check if they are logged in
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
     const data = await ctx.db.query.companies(args, `{ id name }`);
-    const companiesRender = data.map(c => ({ id: c.id, value: c.id, label: c.name}));
+    const companiesRender = data.map(c => ({
+      id: c.id,
+      value: c.id,
+      label: c.name
+    }));
     return companiesRender;
   },
   async employeesSelect(parent, args, ctx, info) {
@@ -41,8 +45,15 @@ const Query = {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
-    const data = await ctx.db.query.employees(args, `{ id first_name last_name }`);
-    const render = data.map(c => ({ id: c.id, value: c.id, label: c.first_name + c.last_name }));
+    const data = await ctx.db.query.employees(
+      args,
+      `{ id first_name last_name }`
+    );
+    const render = data.map(c => ({
+      id: c.id,
+      value: c.id,
+      label: c.first_name + c.last_name
+    }));
     return render;
   },
   async companiesList(parent, args, ctx, info) {
@@ -53,18 +64,32 @@ const Query = {
     return ctx.db.query.companies(args, info);
   },
   async payrollConfigSelect(parent, args, ctx, info) {
-     // 1. Check if they are logged in
+    // 1. Check if they are logged in
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
-    const data = await ctx.db.query.payrollConfigs(args, `{id name }`);
+    const data = await ctx.db.query.payrollConfigs(args, `{id name frequency }`);
+    const render = data.map(c => ({
+      id: c.id,
+      value: c.id,
+      label: c.name,
+      frequency: c.frequency
+    }));
+    return render;
+  },
+  async payrollTypeSelect(parent, args, ctx, info) {
+    // 1. Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!');
+    }
+    const data = await ctx.db.query.payrollTypes({}, `{id name }`);
     const render = data.map(c => ({
       id: c.id,
       value: c.id,
       label: c.name
     }));
     return render;
-  }
+  },
 };
 
 module.exports = Query;
