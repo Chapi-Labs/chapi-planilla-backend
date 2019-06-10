@@ -75,4 +75,5 @@ type Query {
   employeesSelect(where: EmployeeWhereInput): [SelectRender]!
   payrollConfigSelect(where: PayrollConfigWhereInput): [SelectRender]!
   payrollTypeSelect: [SelectRender]!
+  findEmployee(company_id: String!): [Employee!]
 }

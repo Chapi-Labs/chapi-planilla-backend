@@ -1,5 +1,6 @@
 const { forwardTo } = require('prisma-binding');
 const { hasPermission } = require('../utils');
+const EmployeeQuery = require('./queries/EmployeeQuery');
 
 const Query = {
   me(parent, args, ctx, info) {
@@ -90,6 +91,7 @@ const Query = {
     }));
     return render;
   },
+  ...EmployeeQuery
 };
 
 module.exports = Query;
