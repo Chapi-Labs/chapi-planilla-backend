@@ -36,7 +36,7 @@ type Employee @db(name: "employees") {
   base_salary: Float
   salaries: [Salary!]
   company: CompanyEmbedded
-  payroll_frequency: PayrollConfigEmbedded
+  payroll: PayrollConfigEmbedded
   spouse: Boolean @default(value: false)
   createdBy: User! @relation(link: INLINE)
   createdAt: DateTime! @createdAt
@@ -106,7 +106,7 @@ type PayrollConfig @db(name: "payroll_config") {
 # payroll types
 type PayrollConfigEmbedded @embedded {
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types: [PayrollType!] @relation(link: INLINE)
 }
 
@@ -147,4 +147,5 @@ type Config @db(name: "config") {
   tax: Tax
   country_code: String
   payroll_periods: Float
+  currency_symbol: String
 }

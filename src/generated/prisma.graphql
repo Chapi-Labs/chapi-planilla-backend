@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Sun Jun 02 2019 12:11:13 GMT-0600 (Central Standard Time)
+# timestamp: Sun Jun 16 2019 13:02:47 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -406,6 +406,7 @@ type Config implements Node {
   tax: Tax
   country_code: String
   payroll_periods: Float
+  currency_symbol: String
 }
 
 """A connection to a list of items."""
@@ -422,6 +423,7 @@ input ConfigCreateInput {
   id: ID
   country_code: String
   payroll_periods: Float
+  currency_symbol: String
   tax: TaxCreateOneInput
 }
 
@@ -441,12 +443,15 @@ enum ConfigOrderByInput {
   country_code_DESC
   payroll_periods_ASC
   payroll_periods_DESC
+  currency_symbol_ASC
+  currency_symbol_DESC
 }
 
 type ConfigPreviousValues {
   id: ID!
   country_code: String
   payroll_periods: Float
+  currency_symbol: String
 }
 
 type ConfigSubscriptionPayload {
@@ -485,12 +490,14 @@ input ConfigSubscriptionWhereInput {
 input ConfigUpdateInput {
   country_code: String
   payroll_periods: Float
+  currency_symbol: String
   tax: TaxUpdateOneInput
 }
 
 input ConfigUpdateManyMutationInput {
   country_code: String
   payroll_periods: Float
+  currency_symbol: String
 }
 
 input ConfigWhereInput {
@@ -598,6 +605,46 @@ input ConfigWhereInput {
 
   """All values greater than or equal the given value."""
   payroll_periods_gte: Float
+  currency_symbol: String
+
+  """All values that are not equal to given value."""
+  currency_symbol_not: String
+
+  """All values that are contained in given list."""
+  currency_symbol_in: [String!]
+
+  """All values that are not contained in given list."""
+  currency_symbol_not_in: [String!]
+
+  """All values less than the given value."""
+  currency_symbol_lt: String
+
+  """All values less than or equal the given value."""
+  currency_symbol_lte: String
+
+  """All values greater than the given value."""
+  currency_symbol_gt: String
+
+  """All values greater than or equal the given value."""
+  currency_symbol_gte: String
+
+  """All values containing the given string."""
+  currency_symbol_contains: String
+
+  """All values not containing the given string."""
+  currency_symbol_not_contains: String
+
+  """All values starting with the given string."""
+  currency_symbol_starts_with: String
+
+  """All values not starting with the given string."""
+  currency_symbol_not_starts_with: String
+
+  """All values ending with the given string."""
+  currency_symbol_ends_with: String
+
+  """All values not ending with the given string."""
+  currency_symbol_not_ends_with: String
   tax: TaxWhereInput
 }
 
@@ -618,7 +665,7 @@ type Employee implements Node {
   base_salary: Float
   salaries: [Salary!]
   company: CompanyEmbedded
-  payroll_frequency: PayrollConfigEmbedded
+  payroll: PayrollConfigEmbedded
   spouse: Boolean
   createdBy: User!
   createdAt: DateTime!
@@ -647,7 +694,7 @@ input EmployeeCreateInput {
   spouse: Boolean
   salaries: SalaryCreateManyInput
   company: CompanyEmbeddedCreateOneInput
-  payroll_frequency: PayrollConfigEmbeddedCreateOneInput
+  payroll: PayrollConfigEmbeddedCreateOneInput
   createdBy: UserCreateOneInput!
 }
 
@@ -743,7 +790,7 @@ input EmployeeUpdateInput {
   spouse: Boolean
   salaries: SalaryUpdateManyInput
   company: CompanyEmbeddedUpdateOneInput
-  payroll_frequency: PayrollConfigEmbeddedUpdateOneInput
+  payroll: PayrollConfigEmbeddedUpdateOneInput
   createdBy: UserUpdateOneRequiredInput
 }
 
@@ -1061,7 +1108,7 @@ input EmployeeWhereInput {
   salaries_every: SalaryRestrictedWhereInput
   salaries_none: SalaryRestrictedWhereInput
   company: CompanyEmbeddedWhereInput
-  payroll_frequency: PayrollConfigEmbeddedWhereInput
+  payroll: PayrollConfigEmbeddedWhereInput
   createdBy: UserWhereInput
 }
 
@@ -1188,13 +1235,13 @@ type PayrollConfigEdge {
 
 type PayrollConfigEmbedded {
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType!]
 }
 
 input PayrollConfigEmbeddedCreateInput {
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types: PayrollTypeCreateManyInput
 }
 
@@ -1204,7 +1251,7 @@ input PayrollConfigEmbeddedCreateOneInput {
 
 input PayrollConfigEmbeddedUpdateDataInput {
   name: String
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types: PayrollTypeUpdateManyInput
 }
 
@@ -1263,16 +1310,16 @@ input PayrollConfigEmbeddedWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
 
   """All values that are not equal to given value."""
-  payroll_frequency_not: SalaryFrequency
+  frequency_not: SalaryFrequency
 
   """All values that are contained in given list."""
-  payroll_frequency_in: [SalaryFrequency!]
+  frequency_in: [SalaryFrequency!]
 
   """All values that are not contained in given list."""
-  payroll_frequency_not_in: [SalaryFrequency!]
+  frequency_not_in: [SalaryFrequency!]
   types_some: PayrollTypeWhereInput
 }
 
