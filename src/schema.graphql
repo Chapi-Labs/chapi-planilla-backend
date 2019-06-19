@@ -9,16 +9,9 @@ type SelectRender {
   value: String
   label: String
   name: String
-  payroll_frequency: String
-}
-
-input SelectRenderInput {
-  id: String!
-  value: String
-  label: String
-  name: String
   frequency: String
 }
+
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): User!
@@ -76,4 +69,5 @@ type Query {
   payrollConfigSelect(where: PayrollConfigWhereInput): [SelectRender]!
   payrollTypeSelect: [SelectRender]!
   findEmployee(company_id: String!): [Employee!]
+  payrollTypes(category: String!): [PayrollType]
 }

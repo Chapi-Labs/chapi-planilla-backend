@@ -68,12 +68,12 @@ const Query = {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
-    const data = await ctx.db.query.payrollConfigs(args, `{id name payroll_frequency }`);
+    const data = await ctx.db.query.payrollConfigs(args, `{id name frequency }`);
     const render = data.map(c => ({
       id: c.id,
       value: c.id,
       label: c.name,
-      payroll_frequency: c.payroll_frequency
+      frequency: c.frequency
     }));
     return render;
   },
@@ -89,6 +89,22 @@ const Query = {
       label: c.name
     }));
     return render;
+  },
+  async payrollTypes(parent, { category }, ctx, info) {
+    // 1. Check if they are logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!');
+    }
+    const data = await ctx.db.query.payrollTypes(
+      {
+        where: {
+          category: category
+        }
+      },
+      info
+    );
+    data.forEach(d => d.user_value = 0.0);
+    return data;
   },
   ...EmployeeQuery
 };

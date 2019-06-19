@@ -95,7 +95,7 @@ type PayrollTypeEmbedded @embedded {
 type PayrollConfig @db(name: "payroll_config") {
   id: ID! @id
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types: [PayrollType!] @relation(link: INLINE)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt

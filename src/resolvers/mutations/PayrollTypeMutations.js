@@ -53,7 +53,7 @@ const PayrollTypeMutations = {
       {
         where: { id: args.frequency }
       },
-      `{ name payroll_frequency }`
+      `{ name frequency }`
     );
     const [company, config] = await Promise.all([companyPromise, configPromise]);
     let relation_obj = {

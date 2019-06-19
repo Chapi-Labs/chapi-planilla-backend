@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Sun Jun 16 2019 13:02:47 GMT-0600 (Central Standard Time)
+# timestamp: Wed Jun 19 2019 07:38:08 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -1199,7 +1199,7 @@ type PageInfo {
 type PayrollConfig implements Node {
   id: ID!
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType!]
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1219,7 +1219,7 @@ type PayrollConfigConnection {
 input PayrollConfigCreateInput {
   id: ID
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types: PayrollTypeCreateManyInput
   createdBy: UserCreateOneInput
 }
@@ -1328,8 +1328,8 @@ enum PayrollConfigOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  payroll_frequency_ASC
-  payroll_frequency_DESC
+  frequency_ASC
+  frequency_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1339,7 +1339,7 @@ enum PayrollConfigOrderByInput {
 type PayrollConfigPreviousValues {
   id: ID!
   name: String!
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1379,14 +1379,14 @@ input PayrollConfigSubscriptionWhereInput {
 
 input PayrollConfigUpdateInput {
   name: String
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
   types: PayrollTypeUpdateManyInput
   createdBy: UserUpdateOneInput
 }
 
 input PayrollConfigUpdateManyMutationInput {
   name: String
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
 }
 
 input PayrollConfigWhereInput {
@@ -1472,16 +1472,16 @@ input PayrollConfigWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  payroll_frequency: SalaryFrequency
+  frequency: SalaryFrequency
 
   """All values that are not equal to given value."""
-  payroll_frequency_not: SalaryFrequency
+  frequency_not: SalaryFrequency
 
   """All values that are contained in given list."""
-  payroll_frequency_in: [SalaryFrequency!]
+  frequency_in: [SalaryFrequency!]
 
   """All values that are not contained in given list."""
-  payroll_frequency_not_in: [SalaryFrequency!]
+  frequency_not_in: [SalaryFrequency!]
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
