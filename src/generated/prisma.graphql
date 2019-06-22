@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Wed Jun 19 2019 07:38:08 GMT-0600 (Central Standard Time)
+# timestamp: Thu Jun 20 2019 07:26:12 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -1829,7 +1829,8 @@ type PayrollType implements Node {
   type: String!
   operator: String!
   category: String
-  value: Float!
+  value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -1849,7 +1850,8 @@ input PayrollTypeCreateInput {
   type: String!
   operator: String!
   category: String
-  value: Float!
+  value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -1872,7 +1874,8 @@ type PayrollTypeEmbedded implements Node {
   name: String!
   type: String!
   operator: String!
-  value: Float!
+  value: Float
+  operational_value: Float
 }
 
 input PayrollTypeEmbeddedCreateInput {
@@ -1880,7 +1883,8 @@ input PayrollTypeEmbeddedCreateInput {
   name: String!
   type: String!
   operator: String!
-  value: Float!
+  value: Float
+  operational_value: Float
 }
 
 input PayrollTypeEmbeddedCreateManyInput {
@@ -2072,6 +2076,28 @@ input PayrollTypeEmbeddedRestrictedWhereInput {
 
   """All values greater than or equal the given value."""
   value_gte: Float
+  operational_value: Float
+
+  """All values that are not equal to given value."""
+  operational_value_not: Float
+
+  """All values that are contained in given list."""
+  operational_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  operational_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  operational_value_lt: Float
+
+  """All values less than or equal the given value."""
+  operational_value_lte: Float
+
+  """All values greater than the given value."""
+  operational_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  operational_value_gte: Float
 }
 
 input PayrollTypeEmbeddedWhereInput {
@@ -2259,6 +2285,28 @@ input PayrollTypeEmbeddedWhereInput {
 
   """All values greater than or equal the given value."""
   value_gte: Float
+  operational_value: Float
+
+  """All values that are not equal to given value."""
+  operational_value_not: Float
+
+  """All values that are contained in given list."""
+  operational_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  operational_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  operational_value_lt: Float
+
+  """All values less than or equal the given value."""
+  operational_value_lte: Float
+
+  """All values greater than the given value."""
+  operational_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  operational_value_gte: Float
 }
 
 enum PayrollTypeOrderByInput {
@@ -2274,6 +2322,8 @@ enum PayrollTypeOrderByInput {
   category_DESC
   value_ASC
   value_DESC
+  operational_value_ASC
+  operational_value_DESC
   order_ASC
   order_DESC
 }
@@ -2284,7 +2334,8 @@ type PayrollTypePreviousValues {
   type: String!
   operator: String!
   category: String
-  value: Float!
+  value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -2519,6 +2570,28 @@ input PayrollTypeScalarWhereInput {
 
   """All values greater than or equal the given value."""
   value_gte: Float
+  operational_value: Float
+
+  """All values that are not equal to given value."""
+  operational_value_not: Float
+
+  """All values that are contained in given list."""
+  operational_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  operational_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  operational_value_lt: Float
+
+  """All values less than or equal the given value."""
+  operational_value_lte: Float
+
+  """All values greater than the given value."""
+  operational_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  operational_value_gte: Float
   order: Float
 
   """All values that are not equal to given value."""
@@ -2582,6 +2655,7 @@ input PayrollTypeUpdateDataInput {
   operator: String
   category: String
   value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -2591,6 +2665,7 @@ input PayrollTypeUpdateInput {
   operator: String
   category: String
   value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -2600,6 +2675,7 @@ input PayrollTypeUpdateManyDataInput {
   operator: String
   category: String
   value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -2621,6 +2697,7 @@ input PayrollTypeUpdateManyMutationInput {
   operator: String
   category: String
   value: Float
+  operational_value: Float
   order: Float
 }
 
@@ -2865,6 +2942,28 @@ input PayrollTypeWhereInput {
 
   """All values greater than or equal the given value."""
   value_gte: Float
+  operational_value: Float
+
+  """All values that are not equal to given value."""
+  operational_value_not: Float
+
+  """All values that are contained in given list."""
+  operational_value_in: [Float!]
+
+  """All values that are not contained in given list."""
+  operational_value_not_in: [Float!]
+
+  """All values less than the given value."""
+  operational_value_lt: Float
+
+  """All values less than or equal the given value."""
+  operational_value_lte: Float
+
+  """All values greater than the given value."""
+  operational_value_gt: Float
+
+  """All values greater than or equal the given value."""
+  operational_value_gte: Float
   order: Float
 
   """All values that are not equal to given value."""
