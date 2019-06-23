@@ -12,6 +12,24 @@ type SelectRender {
   frequency: String
 }
 
+type Employee {
+  id: String
+  first_name: String
+  last_name: String
+  legal_id: String 
+  hire_date: DateTime
+  active: Boolean
+  email: String 
+  base_salary: Float
+  salaries: [Salary!]
+  company: CompanyEmbedded
+  payroll: PayrollConfigEmbedded
+  hourly_rate: Float
+  spouse: Boolean 
+  createdBy: User
+  createdAt: DateTime
+  updatedAt: DateTime
+}
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): User!

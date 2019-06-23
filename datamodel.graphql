@@ -79,6 +79,7 @@ type PayrollType @db(name: "payroll_type"){
   category: String
   value: Float @default(value: 0)
   operational_value: Float
+  calculated_value: Float  @default(value: 0)
   order: Float
 }
 
@@ -88,6 +89,7 @@ type PayrollTypeEmbedded @embedded {
   type: String!
   operator: String!
   value: Float  @default(value: 0)
+  calculated_value: Float  @default(value: 0)
   operational_value: Float
 }
 
