@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Sun Jun 23 2019 15:22:01 GMT-0600 (Central Standard Time)
+# timestamp: Tue Jul 02 2019 21:18:18 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -38,6 +38,7 @@ type Company implements Node {
   id: ID!
   active: Boolean!
   name: String!
+  professional_risk: Float
   createdBy: User
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -57,6 +58,7 @@ input CompanyCreateInput {
   id: ID
   active: Boolean
   name: String!
+  professional_risk: Float
   createdBy: UserCreateOneInput
 }
 
@@ -73,12 +75,14 @@ type CompanyEmbedded {
   _id: ID
   active: Boolean!
   name: String!
+  professional_risk: Float
 }
 
 input CompanyEmbeddedCreateInput {
   _id: ID
   active: Boolean
   name: String!
+  professional_risk: Float
 }
 
 input CompanyEmbeddedCreateOneInput {
@@ -89,6 +93,7 @@ input CompanyEmbeddedUpdateDataInput {
   _id: ID
   active: Boolean
   name: String
+  professional_risk: Float
 }
 
 input CompanyEmbeddedUpdateOneInput {
@@ -196,6 +201,28 @@ input CompanyEmbeddedWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  professional_risk: Float
+
+  """All values that are not equal to given value."""
+  professional_risk_not: Float
+
+  """All values that are contained in given list."""
+  professional_risk_in: [Float!]
+
+  """All values that are not contained in given list."""
+  professional_risk_not_in: [Float!]
+
+  """All values less than the given value."""
+  professional_risk_lt: Float
+
+  """All values less than or equal the given value."""
+  professional_risk_lte: Float
+
+  """All values greater than the given value."""
+  professional_risk_gt: Float
+
+  """All values greater than or equal the given value."""
+  professional_risk_gte: Float
 }
 
 enum CompanyOrderByInput {
@@ -205,6 +232,8 @@ enum CompanyOrderByInput {
   active_DESC
   name_ASC
   name_DESC
+  professional_risk_ASC
+  professional_risk_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -215,6 +244,7 @@ type CompanyPreviousValues {
   id: ID!
   active: Boolean!
   name: String!
+  professional_risk: Float
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -255,12 +285,14 @@ input CompanySubscriptionWhereInput {
 input CompanyUpdateInput {
   active: Boolean
   name: String
+  professional_risk: Float
   createdBy: UserUpdateOneInput
 }
 
 input CompanyUpdateManyMutationInput {
   active: Boolean
   name: String
+  professional_risk: Float
 }
 
 input CompanyWhereInput {
@@ -350,6 +382,28 @@ input CompanyWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  professional_risk: Float
+
+  """All values that are not equal to given value."""
+  professional_risk_not: Float
+
+  """All values that are contained in given list."""
+  professional_risk_in: [Float!]
+
+  """All values that are not contained in given list."""
+  professional_risk_not_in: [Float!]
+
+  """All values less than the given value."""
+  professional_risk_lt: Float
+
+  """All values less than or equal the given value."""
+  professional_risk_lte: Float
+
+  """All values greater than the given value."""
+  professional_risk_gt: Float
+
+  """All values greater than or equal the given value."""
+  professional_risk_gte: Float
   createdAt: DateTime
 
   """All values that are not equal to given value."""

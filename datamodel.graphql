@@ -47,6 +47,7 @@ type Company @db(name: "companies") {
   id: ID! @id
   active: Boolean! @default(value: true)
   name: String!
+  professional_risk: Float
   createdBy: User @relation(link: INLINE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -66,6 +67,7 @@ type CompanyEmbedded @embedded {
   _id: ID
   active: Boolean! @default(value: true)
   name: String!
+  professional_risk: Float
 }
 
 # Salary, social insurance

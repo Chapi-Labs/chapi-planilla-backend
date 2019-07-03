@@ -53,7 +53,7 @@ type Mutation {
     base_salary: Float
     spouse: Boolean
   ): Employee!
-  createCompany(name: String!): Company!
+  createCompany(name: String!, professional_risk: Float): Company!
   updateEmployee(
     id: ID!
     first_name: String
