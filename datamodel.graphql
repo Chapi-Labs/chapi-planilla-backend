@@ -113,6 +113,8 @@ type PayrollConfig @db(name: "payroll_config") {
 type PayrollConfigEmbedded @embedded {
   name: String!
   frequency: SalaryFrequency
+  weekly_hours: Int
+  hourly_rate: Float
   types: [PayrollType!] @relation(link: INLINE)
 }
 

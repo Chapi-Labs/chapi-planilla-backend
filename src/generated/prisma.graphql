@@ -1,5 +1,5 @@
 # source: http://chapi-planilla-prisma.herokuapp.com
-# timestamp: Tue Jul 02 2019 21:18:18 GMT-0600 (Central Standard Time)
+# timestamp: Mon Jul 08 2019 22:20:41 GMT-0600 (Central Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -1290,12 +1290,16 @@ type PayrollConfigEdge {
 type PayrollConfigEmbedded {
   name: String!
   frequency: SalaryFrequency
+  weekly_hours: Int
+  hourly_rate: Float
   types(where: PayrollTypeWhereInput, orderBy: PayrollTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PayrollType!]
 }
 
 input PayrollConfigEmbeddedCreateInput {
   name: String!
   frequency: SalaryFrequency
+  weekly_hours: Int
+  hourly_rate: Float
   types: PayrollTypeCreateManyInput
 }
 
@@ -1306,6 +1310,8 @@ input PayrollConfigEmbeddedCreateOneInput {
 input PayrollConfigEmbeddedUpdateDataInput {
   name: String
   frequency: SalaryFrequency
+  weekly_hours: Int
+  hourly_rate: Float
   types: PayrollTypeUpdateManyInput
 }
 
@@ -1374,6 +1380,50 @@ input PayrollConfigEmbeddedWhereInput {
 
   """All values that are not contained in given list."""
   frequency_not_in: [SalaryFrequency!]
+  weekly_hours: Int
+
+  """All values that are not equal to given value."""
+  weekly_hours_not: Int
+
+  """All values that are contained in given list."""
+  weekly_hours_in: [Int!]
+
+  """All values that are not contained in given list."""
+  weekly_hours_not_in: [Int!]
+
+  """All values less than the given value."""
+  weekly_hours_lt: Int
+
+  """All values less than or equal the given value."""
+  weekly_hours_lte: Int
+
+  """All values greater than the given value."""
+  weekly_hours_gt: Int
+
+  """All values greater than or equal the given value."""
+  weekly_hours_gte: Int
+  hourly_rate: Float
+
+  """All values that are not equal to given value."""
+  hourly_rate_not: Float
+
+  """All values that are contained in given list."""
+  hourly_rate_in: [Float!]
+
+  """All values that are not contained in given list."""
+  hourly_rate_not_in: [Float!]
+
+  """All values less than the given value."""
+  hourly_rate_lt: Float
+
+  """All values less than or equal the given value."""
+  hourly_rate_lte: Float
+
+  """All values greater than the given value."""
+  hourly_rate_gt: Float
+
+  """All values greater than or equal the given value."""
+  hourly_rate_gte: Float
   types_some: PayrollTypeWhereInput
 }
 

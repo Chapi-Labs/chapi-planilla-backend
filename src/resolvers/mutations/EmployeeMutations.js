@@ -32,13 +32,26 @@ const EmployeeMutations = {
     let relation_obj = {};
     if (frequency != null) {
       const idConfig = frequency.id;
+      const weekly_hours = args.weekly_hours;
       delete frequency.id;
+      // calculate hourly rate
+      let salary_rate = 0.0;
+      const salary = args.base_salary;
+      if (frequency.frequency === "MONTHLY") {
+          salary_rate = (salary * 12) / 52 / weekly_hours;
+        } else if (frequency.frequency === "WEEKLY") {
+          salary_rate = (salary * 12 * 4) / 52 / weekly_hours;
+        } else if (frequency.frequency === "BI_WEEKLY") {
+          salary_rate = (salary * 12 * 2) / 52 / weekly_hours;
+        }
+
       relation_obj = {
         ...relation_obj,
-        payroll_frequency: {
+        payroll: {
           create: {
             ...frequency,
-            _id: idConfig
+            weekly_hours,
+            hourly_rate: salary_rate,
           }
         }
       }
@@ -51,6 +64,8 @@ const EmployeeMutations = {
         company: { create: { ...company, _id: idCompany } }
       };
     }
+    delete args.weekly_hours;
+    delete args.payroll_frequency;
     // 2. create Employee
     const employee = await ctx.db.mutation.createEmployee(
       {
