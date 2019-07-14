@@ -52,12 +52,14 @@ type Mutation {
     payroll_frequency: String
     base_salary: Float
     spouse: Boolean
+    weekly_hours: Int
   ): Employee!
   createCompany(name: String!, professional_risk: Float): Company!
   updateEmployee(
     id: ID!
     first_name: String
     last_name: String
+    legal_id: String
     email: String
     base_salary: Float
     company: String
