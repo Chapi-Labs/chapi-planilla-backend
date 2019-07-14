@@ -1,6 +1,6 @@
 
 const CompanyMutations = {
-  async createCompany(parent, args, ctx, info) {
+  async createCompany(parent, {name, professional_risk}, ctx, info) {
     // 1. Check if they are logged in
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
@@ -9,7 +9,8 @@ const CompanyMutations = {
     const company = await ctx.db.mutation.createCompany(
       {
         data: {
-          ...args,
+          name,
+          professional_risk: professional_risk/100.0,
           active: true,
           createdBy: { connect: { id: ctx.request.userId } }
         }

@@ -65,7 +65,7 @@ type Mutation {
     company: String
   ): Employee
   createPayrollConfig(name: String!, frequency: String): PayrollConfig
-  updateCompany(id: ID!, name: String!): Company
+  updateCompany(id: String!, name: String, professional_risk: Float): Company
   createConfig(data: ConfigCreateInput): Config
   createPayrollType(
     name: String!
