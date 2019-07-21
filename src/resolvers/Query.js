@@ -1,6 +1,7 @@
 const { forwardTo } = require('prisma-binding');
 const { hasPermission } = require('../utils');
 const EmployeeQuery = require('./queries/EmployeeQuery');
+const PayrollRegistry = require('./queries/PayrollRegistry');
 
 const Query = {
   me(parent, args, ctx, info) {
@@ -68,7 +69,10 @@ const Query = {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in!');
     }
-    const data = await ctx.db.query.payrollConfigs(args, `{id name frequency }`);
+    const data = await ctx.db.query.payrollConfigs(
+      args,
+      `{id name frequency }`
+    );
     const render = data.map(c => ({
       id: c.id,
       value: c.id,
@@ -103,10 +107,10 @@ const Query = {
       },
       info
     );
-    data.forEach(d => d.user_value = 0.0);
     return data;
   },
-  ...EmployeeQuery
+  ...EmployeeQuery,
+  ...PayrollRegistry
 };
 
 module.exports = Query;

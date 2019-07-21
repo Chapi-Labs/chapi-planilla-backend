@@ -90,4 +90,5 @@ type Query {
   payrollTypeSelect: [SelectRender]!
   findEmployee(company_id: String!): [Employee!]
   payrollTypes(category: String!): [PayrollType]
+  findPayrollRegistry(company_id: String): [PayrollRegistry]
 }
