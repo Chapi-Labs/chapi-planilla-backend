@@ -62,7 +62,7 @@ const UserMutations = {
         // 1. Check if this is a real user
         const user = await ctx.db.query.user({ where: { email: args.email } });
         if (!user) {
-            throw new Error(`No such user found for email ${args.email}`);
+            throw new Error(`No se ha encontrado el email ${args.email}`);
         }
         // 2. Set a reset token and expiry on that user
         const randomBytesPromiseified = promisify(randomBytes);
@@ -74,18 +74,18 @@ const UserMutations = {
         });
         // 3. Email them that reset token
         const mailRes = await transport.sendMail({
-            from: 'wes@wesbos.com',
+            from: 'no-reply@email.chapilabs.com',
             to: user.email,
-            subject: 'Your Password Reset Token',
-            html: makeANiceEmail(`Your Password Reset Token is here!
+            subject: 'Recuperación de Contraseña',
+            html: makeANiceEmail(user.name, `
         \n\n
         <a href="${
                 process.env.FRONTEND_URL
-                }/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
+                }/reset?resetToken=${resetToken}">Click aquí para cambiar contraseña</a>`)
         });
 
         // 4. Return the message
-        return { message: 'Thanks!' };
+        return { message: 'Gracias!' };
     },
     async resetPassword(parent, args, ctx, info) {
         // 1. check if the passwords match
