@@ -90,7 +90,7 @@ const UserMutations = {
     async resetPassword(parent, args, ctx, info) {
         // 1. check if the passwords match
         if (args.password !== args.confirmPassword) {
-            throw new Error("Yo Passwords don't match!");
+            throw new Error("Las contraseñas no coinciden!");
         }
         // 2. check if its a legit reset token
         // 3. Check if its expired
@@ -101,7 +101,7 @@ const UserMutations = {
             }
         });
         if (!user) {
-            throw new Error('This token is either invalid or expired!');
+            throw new Error('Este token es inválido o ha expirado, solicita otro.');
         }
         // 4. Hash their new password
         const password = await bcrypt.hash(args.password, 10);
